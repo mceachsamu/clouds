@@ -29,6 +29,8 @@ public class cloud_spawner : MonoBehaviour
     public float moveSpeedMin;
     public Vector3 cloudMoveDirection;
 
+    public float fadeRate;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +64,7 @@ public class cloud_spawner : MonoBehaviour
             cloud.AddComponent<cloud>();
             cloud.GetComponent<cloud>().cloudSpawner = this;
             cloud.GetComponent<cloud>().cloudMoveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
+            cloud.GetComponent<cloud>().fadeRate = fadeRate;
         }
 
         return null;

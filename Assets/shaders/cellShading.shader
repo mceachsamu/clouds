@@ -19,6 +19,8 @@
         _RimColor("Rim Color", Color) = (1,1,1,1)
         _RimAmount("Rim Amount", Range(0, 1)) = 1.0
         _Saturation("Saturation", range(0,1)) = 1.0
+
+        _Transparency("transparenct", Range(0.0, 1.0)) = 1.0
     }
 
     SubShader
@@ -29,8 +31,11 @@
         {
 
             Name "FORWARD"
-            Tags { "LightMode" = "ForwardBase" }
-
+            Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "RenderType"="Transparent"}
+            // Cull Off
+            ZWrite On
+            Lighting Off
+            Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
             #pragma target 3.0
 
@@ -74,6 +79,7 @@
             uniform float4 _AmbientColor;
             uniform int _UseNormalMap;
             uniform float _Saturation;
+            uniform float _Transparency;
 
             v2f vert (appdata_tan v)
             {
@@ -126,6 +132,7 @@
 
                 float4 shading = GetCellShading(i.wpos, _WorldSpaceLightPos0.xyzw, worldNormal, i.viewDir, col, _LightColor0, _RimColor, _SpecularColor, _RimAmount, _Glossiness);
 
+                shading.a = _Transparency;
                 return shading * col;
             }
             ENDCG

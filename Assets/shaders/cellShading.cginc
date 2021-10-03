@@ -39,7 +39,7 @@ inline float4 GetShading (float4 wpos, float4 lightPos, float3 wNorm, float3 vie
     float4 finalColor = (baseColor + overall + specular + rim + backLighting/2.0) * dist * lightCol;
     //we arent using the alpha channel for our final shading, so pass
     //through the NdotL value so we can use it for calculating underwater distortion
-    finalColor.a = NdotL;
+    // finalColor.a = NdotL;
     return finalColor;
 }
 
