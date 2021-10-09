@@ -33,6 +33,8 @@ public class cloud_spawner : MonoBehaviour
 
     public Vector3 center;
 
+    public Color[] colors;
+
     public GameObject camera;
 
     // Start is called before the first frame update
@@ -61,9 +63,12 @@ public class cloud_spawner : MonoBehaviour
 
             int meterialIndex = Random.Range(0, materials.Length);
 
+            int colorIndex = Random.Range(0, colors.Length);
+
             cloud.GetComponent<Renderer>().material = materials[meterialIndex];
 
             cloud.AddComponent<cloud>();
+            cloud.GetComponent<cloud>().baseColor = colors[colorIndex];
             cloud.GetComponent<cloud>().cloudSpawner = this;
             cloud.GetComponent<cloud>().cloudMoveSpeed = GetCloudMoveSpeed();
             cloud.GetComponent<cloud>().fadeRate = fadeRate;

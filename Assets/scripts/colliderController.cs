@@ -15,7 +15,15 @@ public class colliderController : MonoBehaviour
 
     private float moveSpeed;
 
-    private float emissionRate = 30.0f;
+    private float emissionRate = 60.0f;
+
+    private float spawnTransparency = 1.0f;
+
+    public float transparencyFade;
+
+    public Color baseColor;
+
+    List<Vector4> customDat = new List<Vector4>();
 
     public void SetMaxSize(float max) {
         this.maxSize = max;
@@ -36,6 +44,19 @@ public class colliderController : MonoBehaviour
     public void turnOn() {
         var emission = system.emission;
         emission.rate = emissionRate;
+        this.spawnTransparency = 1.0f;
+    }
+
+    public void turnOff() {
+        var emission = system.emission;
+        emission.rate = emissionRate;
+        emission.rate = 0.0f;
+        this.spawnTransparency = 1.0f;
+    }
+
+    public bool isEmitting() {
+        var emission = system.emission;
+        return emission.rate.Evaluate(0.0f) != 0.0f;
     }
 
     // Start is called before the first frame update
@@ -45,13 +66,15 @@ public class colliderController : MonoBehaviour
         m_Particles = new ParticleSystem.Particle[system.main.maxParticles];
         system.GetComponent<ParticleSystemRenderer> ().renderingLayerMask = 0;
 
-        var emission = system.emission;
-        emission.rate = 0.0f;
+        // this.turnOff();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        system.GetCustomParticleData(customDat, ParticleSystemCustomData.Custom2);
+        
         int numParticlesAlive = system.GetParticles(m_Particles);
         for (int i = 0; i < numParticlesAlive; i++) {
             ParticleSystem.Particle particle = m_Particles[i];
@@ -60,11 +83,26 @@ public class colliderController : MonoBehaviour
                 float scale = Random.Range(minSize, maxSize);
 
                 m_Particles[i].startSize = scale;
+                this.handleTransparency(i);
             }
 
             m_Particles[i].position += this.moveDirection * this.moveSpeed;
+
         }
 
         system.SetParticles(m_Particles, numParticlesAlive);
+        system.SetCustomParticleData(customDat, ParticleSystemCustomData.Custom2);
+    }
+
+    private void handleTransparency(int i) {
+        customDat[i] = new Color(baseColor.r, baseColor.g, baseColor.b, spawnTransparency);
+
+        if (this.isEmitting()) {
+            spawnTransparency -= transparencyFade;
+        }
+        
+        if (spawnTransparency <= 0.0f) {
+            this.turnOff();
+        }
     }
 }

@@ -13,6 +13,8 @@ public class cloud : MonoBehaviour
     private float transparency = startTransparency;
 
     public float fadeRate;
+
+    public Color baseColor;
     
     private bool fading;
     private Vector3 resetPosition;
@@ -21,6 +23,7 @@ public class cloud : MonoBehaviour
     void Start()
     {
         this.GetComponent<Renderer>().material.SetFloat("_Transparency", transparency); 
+        this.GetComponent<Renderer>().material.SetVector("_Color", baseColor); 
     }
 
     // Update is called once per frame
