@@ -31,6 +31,10 @@ public class cloud_spawner : MonoBehaviour
 
     public float fadeRate;
 
+    public Vector3 center;
+
+    public GameObject camera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +44,7 @@ public class cloud_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.center = camera.transform.position;
     }
 
     public GameObject[] instantiateClouds() {
@@ -83,10 +87,23 @@ public class cloud_spawner : MonoBehaviour
     }
 
     public Vector3 getPosition() {
-        float xRange = Random.Range(-rangeX/2.0f, rangeX/2.0f);
-        float yRange = Random.Range(-rangeY/2.0f, rangeY/2.0f);
-        float zRange = Random.Range(-rangeZ/2.0f, rangeZ/2.0f);
+        float xRange = Random.Range(center.x - rangeX/2.0f, center.x + rangeX/2.0f);
+        float yRange = Random.Range(center.y - rangeY/2.0f, center.y + rangeY/2.0f);
+        float zRange = Random.Range(center.z - rangeZ/2.0f, center.z + rangeZ/2.0f);
 
         return new Vector3(xRange,yRange,zRange);
     }
+
+    public float getRangeX() {
+        return this.rangeX;
+    }
+
+    public float getRangeY() {
+        return this.rangeY;
+    }
+
+    public float getRangeZ() {
+        return this.rangeZ;
+    }
+
 }

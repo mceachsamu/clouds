@@ -35,7 +35,7 @@
             // Cull Off
             ZWrite On
             Lighting Off
-            Blend SrcAlpha OneMinusSrcAlpha
+            Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma target 3.0
 
