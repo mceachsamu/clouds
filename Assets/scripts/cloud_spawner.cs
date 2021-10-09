@@ -38,7 +38,8 @@ public class cloud_spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            instantiateClouds();
+        Application.targetFrameRate = 60;
+        instantiateClouds();
     }
 
     // Update is called once per frame

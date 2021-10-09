@@ -13,7 +13,10 @@ public class planeController : MonoBehaviour
 
     private Rigidbody rb;
 
-    public GameObject centerOfMass;
+    public GameObject[] colliderPositions;
+    
+
+    public float collisionDistance;
 
 
     // Start is called before the first frame update
@@ -25,11 +28,8 @@ public class planeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // rb.centerOfMass = centerOfMass.transform.position;
         // add thrust force
         rb.AddForce(this.transform.up * thrust);
-        // print(this.transform.up);
-
         if (Input.GetKey("w")) {
             Vector3 direction = this.transform.forward * yTiltRate * - 1.0f;
             Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
@@ -49,6 +49,21 @@ public class planeController : MonoBehaviour
             Vector3 direction = this.transform.up * yTiltRate * -1.0f;
             Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
+        }
+
+        for (int i = 0; i < colliderPositions.Length; i++) {
+            handleCollision(colliderPositions[i].transform.position);
+        }
+    }
+
+    private void handleCollision(GameObject collider) {
+        RaycastHit hit;
+
+        Debug.DrawLine(collider.transform.position, (collider.transform.position + this.transform.up * collisionDistance), Color.green);
+        if (Physics.Raycast(collider.transform.position, this.transform.up, collisionDistance))
+        {
+            Debug.Log("Did Hit");
+            
         }
     }
 }
