@@ -15,8 +15,9 @@ public class planeController : MonoBehaviour
 
     public GameObject[] colliderPositions;
     
-
     public float collisionDistance;
+
+    public GameObject cloudController;
 
 
     // Start is called before the first frame update
@@ -52,18 +53,25 @@ public class planeController : MonoBehaviour
         }
 
         for (int i = 0; i < colliderPositions.Length; i++) {
-            handleCollision(colliderPositions[i].transform.position);
+            handleCollision(colliderPositions[i]);
         }
     }
 
     private void handleCollision(GameObject collider) {
         RaycastHit hit;
 
+        
+
         Debug.DrawLine(collider.transform.position, (collider.transform.position + this.transform.up * collisionDistance), Color.green);
         if (Physics.Raycast(collider.transform.position, this.transform.up, collisionDistance))
         {
             Debug.Log("Did Hit");
-            
+            colliderController collide = collider.GetComponent<colliderController>();
+            cloud_spawner cloudControl = cloudController.GetComponent<cloud_spawner>();
+            collide.setMoveSpeed(cloudControl.GetCloudMoveSpeed()/10.0f);
+            collide.setMoveDirection(cloudControl.cloudMoveDirection);
+
+            collide.turnOn();
         }
     }
 }

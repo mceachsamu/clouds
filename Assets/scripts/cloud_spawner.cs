@@ -52,9 +52,6 @@ public class cloud_spawner : MonoBehaviour
         for (int i = 0; i < numClouds; i++) {
             int prefabIndex = Random.Range(0, cloudPrefabs.Length);
             GameObject cloud = Instantiate(cloudPrefabs[prefabIndex]);
-            float xRange = Random.Range(-rangeX/2.0f, rangeX/2.0f);
-            float yRange = Random.Range(-rangeY/2.0f, rangeY/2.0f);
-            float zRange = Random.Range(-rangeZ/2.0f, rangeZ/2.0f);
 
             cloud.transform.position = getPosition();
 
@@ -68,11 +65,15 @@ public class cloud_spawner : MonoBehaviour
 
             cloud.AddComponent<cloud>();
             cloud.GetComponent<cloud>().cloudSpawner = this;
-            cloud.GetComponent<cloud>().cloudMoveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
+            cloud.GetComponent<cloud>().cloudMoveSpeed = GetCloudMoveSpeed();
             cloud.GetComponent<cloud>().fadeRate = fadeRate;
         }
 
         return null;
+    }
+
+    public float GetCloudMoveSpeed() {
+        return Random.Range(moveSpeedMin, moveSpeedMax);
     }
 
     public Vector3 getRotation() {
