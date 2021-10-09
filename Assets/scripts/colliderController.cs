@@ -15,7 +15,7 @@ public class colliderController : MonoBehaviour
 
     private float moveSpeed;
 
-    private float emissionRate = 60.0f;
+    private float emissionRate = 30.0f;
 
     private float spawnTransparency = 1.0f;
 
@@ -51,7 +51,7 @@ public class colliderController : MonoBehaviour
         var emission = system.emission;
         emission.rate = emissionRate;
         emission.rate = 0.0f;
-        this.spawnTransparency = 1.0f;
+        // this.spawnTransparency = 1.0f;
     }
 
     public bool isEmitting() {
