@@ -33,10 +33,10 @@ public class planeController : MonoBehaviour
     void Update()
     {
 
-        Vector3 windDir = new Vector3(0.0f, 0.0f,  this.transform.up.z).normalized;//this.transform.up;
-        Vector3 forward = this.transform.up.normalized;
+        Vector3 windDir = new Vector3(0.0f, 0.0f,  this.getForward().z).normalized;//this.getForward();
+        Vector3 forward = this.getForward().normalized;
 
-        float liftDir = this.transform.up.y < 0.0f ? -1.0f : 1.0f;
+        float liftDir = this.getForward().y < 0.0f ? -1.0f : 1.0f;
         
         float lift = (1.0f - Vector3.Dot(windDir, forward) + baseLift) * liftDir * liftAmount;
 
@@ -48,7 +48,7 @@ public class planeController : MonoBehaviour
         Debug.DrawLine(this.transform.position, (this.transform.position + windDir * 600.0f), Color.yellow);
 
         // add forward thrust force
-        rb.AddForce(this.transform.up * thrust);
+        rb.AddForce(this.getForward() * thrust);
 
         // add our turning torques
         if (Input.GetKey("w")) {
@@ -62,12 +62,12 @@ public class planeController : MonoBehaviour
             rb.AddTorque(direction);
         }
         if (Input.GetKey("a")) {
-            Vector3 direction = this.transform.up * yTiltRate;
+            Vector3 direction = this.getForward() * yTiltRate;
             Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
         }
         if (Input.GetKey("d")) {
-            Vector3 direction = this.transform.up * yTiltRate * -1.0f;
+            Vector3 direction = this.getForward() * yTiltRate * -1.0f;
             Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
         }
@@ -80,10 +80,8 @@ public class planeController : MonoBehaviour
     private void handleCollision(GameObject collider) {
         RaycastHit hit;
 
-        
-
-        Debug.DrawLine(collider.transform.position, (collider.transform.position + this.transform.up * collisionDistance), Color.green);
-        if (Physics.Raycast(collider.transform.position, this.transform.up, out hit, collisionDistance))
+        Debug.DrawLine(collider.transform.position, (collider.transform.position + this.getForward() * collisionDistance), Color.green);
+        if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
         {
             
             Debug.Log("Did Hit");
@@ -94,5 +92,13 @@ public class planeController : MonoBehaviour
             collide.baseColor = hit.transform.gameObject.GetComponent<cloud>().baseColor;
             collide.turnOn();
         }
+    }
+
+    public Vector3 getForward() {
+        return this.transform.up;
+    }
+    
+    public Vector3 getUp() {
+        return this.transform.right;
     }
 }
