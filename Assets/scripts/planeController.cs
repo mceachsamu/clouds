@@ -10,6 +10,9 @@ public class planeController : MonoBehaviour
     public float yTiltRate;
 
     public float thrust;
+    public float liftAmount;
+
+    public float baseLift;
 
     private Rigidbody rb;
 
@@ -29,8 +32,25 @@ public class planeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // add thrust force
+
+        Vector3 windDir = new Vector3(0.0f, 0.0f,  this.transform.up.z).normalized;//this.transform.up;
+        Vector3 forward = this.transform.up.normalized;
+
+        float liftDir = this.transform.up.y < 0.0f ? -1.0f : 1.0f;
+        
+        float lift = (1.0f - Vector3.Dot(windDir, forward) + baseLift) * liftDir * liftAmount;
+
+        print(lift);
+        
+        // add our lift force
+        rb.AddForce(this.transform.right * -1.0f * lift);
+
+        Debug.DrawLine(this.transform.position, (this.transform.position + windDir * 600.0f), Color.yellow);
+
+        // add forward thrust force
         rb.AddForce(this.transform.up * thrust);
+
+        // add our turning torques
         if (Input.GetKey("w")) {
             Vector3 direction = this.transform.forward * yTiltRate * - 1.0f;
             Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
