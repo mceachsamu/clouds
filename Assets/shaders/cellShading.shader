@@ -18,7 +18,14 @@
 
         _RimColor("Rim Color", Color) = (1,1,1,1)
         _RimAmount("Rim Amount", Range(0, 1)) = 1.0
-        _Saturation("Saturation", range(0,1)) = 1.0
+        _Saturation("Saturation", Range(0, 1)) = 1.0
+
+        _DepthMultiplier("depth mult", Range(0, 1)) = 1.0
+        _BackLightNormalStrength("backlighting normal str", Range(0, 1)) = 0.0
+        _BackLightStrength("back lighting str", Range(0, 1)) = 1.0
+        _BackLightPower("backlight pwr", Range(0, 1.0)) = 1.0
+        _FakeDensityMult("fake depth str", Range(0, 1)) = 1.0
+        _BacklightColor("backlight color", Color) = (1.0, 1.0, 1.0, 1.0)
 
         _Transparency("transparenct", Range(0.0, 1.0)) = 1.0
     }
@@ -32,14 +39,12 @@
 
             Name "FORWARD"
             Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "RenderType"="Transparent"}
-            // Cull Off
+
             ZWrite On
             Lighting Off
             Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma target 3.0
-
-            #include "cellShading.cginc"
 
             #pragma multi_compile_shadowcaster
             #pragma vertex vert
@@ -81,6 +86,13 @@
             uniform float _Saturation;
             uniform float _Transparency;
 
+            uniform float _DepthMultiplier;
+            uniform float _BackLightNormalStrength;
+            uniform float _BackLightStrength;
+            uniform float _FakeDensityMult;
+            uniform float4 _BacklightColor;
+            uniform float _BackLightPower;
+
             v2f vert (appdata_tan v)
             {
                 v2f o;
@@ -102,6 +114,9 @@
                 o.tspace2 = half3(wTangent.z, wBitangent.z, o.worldNormal.z);
                 return o;
             }
+
+            #include "cellShading.cginc"
+            #include "MyLighting.cginc"
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -130,8 +145,8 @@
                 //apply saturation
                 col.rgb = col.rgb * _Saturation;
 
-                float4 shading = GetCellShading(i.wpos, _WorldSpaceLightPos0.xyzw, worldNormal, i.viewDir, col, _LightColor0, _RimColor, _SpecularColor, _RimAmount, _Glossiness);
-
+                // float4 shading = GetCellShading(i.wpos, _WorldSpaceLightPos0.xyzw, worldNormal, i.viewDir, col, _LightColor0, _RimColor, _SpecularColor, _RimAmount, _Glossiness);
+                float4 shading = getLighting(worldNormal, worldNormal, i.viewDir);
                 shading.a = _Transparency;
                 return shading * col;
             }

@@ -42,13 +42,9 @@ public class planeController : MonoBehaviour
         float liftDir = this.getForward().y < 0.0f ? -1.0f : 1.0f;
         
         float lift = (1.0f - Vector3.Dot(windDir, forward) + baseLift) * liftDir * liftAmount;
-
-        print(lift);
         
         // add our lift force
         rb.AddForce(this.transform.right * -1.0f * lift);
-
-        Debug.DrawLine(this.transform.position, (this.transform.position + windDir * 600.0f), Color.yellow);
 
         // add forward thrust force
         rb.AddForce(this.getForward() * thrust);
@@ -56,22 +52,18 @@ public class planeController : MonoBehaviour
         // add our turning torques
         if (Input.GetKey("w")) {
             Vector3 direction = this.transform.forward * yTiltRate * - 1.0f;
-            Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
         }
         if (Input.GetKey("s")) {
             Vector3 direction = this.transform.forward * yTiltRate;
-            Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
         }
         if (Input.GetKey("a")) {
             Vector3 direction = this.getForward() * yTiltRate;
-            Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
         }
         if (Input.GetKey("d")) {
             Vector3 direction = this.getForward() * yTiltRate * -1.0f;
-            Debug.DrawLine(this.transform.position, (this.transform.position + direction * 600.0f), Color.red);
             rb.AddTorque(direction);
         }
 
@@ -83,7 +75,6 @@ public class planeController : MonoBehaviour
     private void handleCollision(GameObject collider) {
         RaycastHit hit;
 
-        Debug.DrawLine(collider.transform.position, (collider.transform.position + this.getForward() * collisionDistance), Color.green);
         if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
         {
             
