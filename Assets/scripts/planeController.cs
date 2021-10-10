@@ -22,6 +22,9 @@ public class planeController : MonoBehaviour
 
     public GameObject cloudController;
 
+    public float minParticleFade;
+    public float maxParticleFade;
+
 
     // Start is called before the first frame update
     void Start()
@@ -86,12 +89,17 @@ public class planeController : MonoBehaviour
             
             Debug.Log("Did Hit");
             colliderController collide = collider.GetComponent<colliderController>();
+            collide.SetTransparencyFade(getCollisionParticleFade());
             cloud_spawner cloudControl = cloudController.GetComponent<cloud_spawner>();
             collide.setMoveSpeed(cloudControl.GetCloudMoveSpeed()/10.0f);
             collide.setMoveDirection(cloudControl.cloudMoveDirection);
             collide.baseColor = hit.transform.gameObject.GetComponent<cloud>().baseColor;
             collide.turnOn();
         }
+    }
+
+    private float getCollisionParticleFade() {
+        return Random.Range(minParticleFade, maxParticleFade);
     }
 
     public Vector3 getForward() {

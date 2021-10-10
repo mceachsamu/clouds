@@ -176,8 +176,8 @@ MonoBehaviour:
   rangeY: 1000
   rangeZ: 1000
   numClouds: 800
-  moveSpeedMax: 0.2
-  moveSpeedMin: 0.05
+  moveSpeedMax: 0.05
+  moveSpeedMin: 0.01
   cloudMoveDirection: {x: -1, y: 0.6, z: 0}
   fadeRate: 0.005
   center: {x: 0, y: 0, z: 0}
@@ -319,7 +319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 300
   maxSize: 400
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &94090338
 ParticleSystemRenderer:
@@ -5213,7 +5212,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 300
   maxSize: 200
-  transparencyFade: 0.0021
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &129951665
 ParticleSystemRenderer:
@@ -10311,7 +10309,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 100
   maxSize: 150
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &557332764
 ParticleSystemRenderer:
@@ -15219,7 +15216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 100
   maxSize: 200
-  transparencyFade: 0.002
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &685213473
 ParticleSystemRenderer:
@@ -20278,7 +20274,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 200
   maxSize: 300
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &729721570
 ParticleSystemRenderer:
@@ -25384,7 +25379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 100
   maxSize: 150
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &954434438
 ParticleSystemRenderer:
@@ -30435,7 +30429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.64423
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30443,7 +30437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2164.2588
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30605,7 +30599,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 400
   maxSize: 500
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &1305765577
 ParticleSystemRenderer:
@@ -40341,7 +40334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 400
   maxSize: 500
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1393887505 stripped
 Transform:
@@ -40464,7 +40456,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSize: 300
   maxSize: 400
-  transparencyFade: 0.001
   baseColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!199 &1654919604
 ParticleSystemRenderer:
@@ -45356,6 +45347,8 @@ MonoBehaviour:
   - {fileID: 557332762}
   collisionDistance: 0.5
   cloudController: {fileID: 15667982}
+  minParticleFade: 0.0008
+  maxParticleFade: 0.0014
 --- !u!54 &1781025840
 Rigidbody:
   m_ObjectHideFlags: 0

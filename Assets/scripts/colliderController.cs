@@ -19,8 +19,8 @@ public class colliderController : MonoBehaviour
 
     private float spawnTransparency = 1.0f;
 
-    public float transparencyFade;
-
+    private float transparencyFade = 1.0f;
+    
     public Color baseColor;
 
     List<Vector4> customDat = new List<Vector4>();
@@ -104,5 +104,9 @@ public class colliderController : MonoBehaviour
         if (spawnTransparency <= 0.0f) {
             this.turnOff();
         }
+    }
+
+    public void SetTransparencyFade(float fadeRate) {
+        this.transparencyFade = fadeRate;
     }
 }
