@@ -13,7 +13,7 @@ public class cameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // offset = this.transform.position - plane.tranform.position;
+        
     }
 
     // Update is called once per frame

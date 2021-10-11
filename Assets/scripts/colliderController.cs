@@ -15,7 +15,7 @@ public class colliderController : MonoBehaviour
 
     private float moveSpeed;
 
-    private float emissionRate = 20.0f;
+    private float emissionRate = 30.0f;
 
     private float spawnTransparency = 1.0f;
 

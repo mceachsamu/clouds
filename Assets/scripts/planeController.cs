@@ -11,6 +11,7 @@ public class planeController : MonoBehaviour
 
     public float thrust;
     public float liftAmount;
+    public float liftPull;
 
     public float baseLift;
 
@@ -35,16 +36,30 @@ public class planeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Vector3 windDir = new Vector3(0.0f, 0.0f,  this.getForward().z).normalized;//this.getForward();
+        Vector3 windDir = new Vector3(0.0f, 0.0f, this.getForward().z).normalized;//this.getForward();
         Vector3 forward = this.getForward().normalized;
+        Vector3 wing = -1.0f * this.transform.right.normalized;
+        
+        Vector3 reflect = this.transform.worldToLocalMatrix * (wing * 2.0f * Vector3.Dot(wing, windDir) - windDir);
+        reflect.y *= -1.0f;
+        reflect.x *= -1.0f;
+        
+        reflect = this.transform.localToWorldMatrix * reflect;
+        reflect.x = 0.0f;
+        reflect.z = 0.0f;
 
-        float liftDir = this.getForward().y < 0.0f ? -1.0f : 1.0f;
+        Vector3 pullY = new Vector3(forward.x, 0.0f, forward.z);
+        rb.AddForce(pullY * Mathf.Abs(rb.velocity.y) * liftPull);
         
-        float lift = (1.0f - Vector3.Dot(windDir, forward) + baseLift) * liftDir * liftAmount;
+        Vector3 pullX = new Vector3(0.0f, forward.y, 0.0f);
+        rb.AddForce(pullX * (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)) * liftPull);
         
+
+        print(Mathf.Abs(rb.velocity.y));
+        
+        float liftV = rb.velocity.magnitude > 1.0f ? 1.0f : rb.velocity.magnitude;
         // add our lift force
-        rb.AddForce(this.transform.right * -1.0f * lift);
+        rb.AddForce(reflect.normalized * liftAmount * liftV);
 
         // add forward thrust force
         rb.AddForce(this.getForward() * thrust);
@@ -72,16 +87,19 @@ public class planeController : MonoBehaviour
         }
     }
 
+    public float getSpeed() {
+        return this.GetComponent<Rigidbody>().velocity.magnitude;
+    }
+
     private void handleCollision(GameObject collider) {
         RaycastHit hit;
 
         if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
         {
-            
-            Debug.Log("Did Hit");
             colliderController collide = collider.GetComponent<colliderController>();
             collide.SetTransparencyFade(getCollisionParticleFade());
             cloud_spawner cloudControl = cloudController.GetComponent<cloud_spawner>();
+            cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
             collide.setMoveSpeed(cloudControl.GetCloudMoveSpeed()/10.0f);
             collide.setMoveDirection(cloudControl.cloudMoveDirection);
             collide.baseColor = hit.transform.gameObject.GetComponent<cloud>().baseColor;
