@@ -18,6 +18,7 @@ public class cloud : MonoBehaviour
     
     private bool fading;
     private Vector3 resetPosition;
+    public int colorIndex;
 
     // Start is called before the first frame update
     void Start()

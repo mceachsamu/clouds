@@ -27,7 +27,7 @@
         _FakeDensityMult("fake depth str", Range(0, 1)) = 1.0
         _BacklightColor("backlight color", Color) = (1.0, 1.0, 1.0, 1.0)
 
-        _Transparency("transparenct", Range(0.0, 1.0)) = 1.0
+        _Transparency("transparency", Range(0.0, 1.0)) = 1.0
     }
 
     SubShader

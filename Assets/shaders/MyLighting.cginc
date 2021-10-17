@@ -32,7 +32,7 @@ float4 getRimLighting(float3 normal, float3 viewDir) {
 float4 getBackLighting(float3 normal, float3 viewDir, float3 lightDir) {
     float b = dot(normalize(viewDir), -normalize(lightDir - normal * _BackLightNormalStrength));
 
-    return b * _BacklightColor;
+    return b * _BacklightColor * _BackLightStrength;
 }
 
 

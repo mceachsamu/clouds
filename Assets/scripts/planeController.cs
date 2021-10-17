@@ -54,9 +54,6 @@ public class planeController : MonoBehaviour
         Vector3 pullX = new Vector3(0.0f, forward.y, 0.0f);
         rb.AddForce(pullX * (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z)) * liftPull);
         
-
-        print(Mathf.Abs(rb.velocity.y));
-        
         float liftV = rb.velocity.magnitude > 1.0f ? 1.0f : rb.velocity.magnitude;
         // add our lift force
         rb.AddForce(reflect.normalized * liftAmount * liftV);
@@ -96,6 +93,7 @@ public class planeController : MonoBehaviour
 
         if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
         {
+            print("hit");
             colliderController collide = collider.GetComponent<colliderController>();
             collide.SetTransparencyFade(getCollisionParticleFade());
             cloud_spawner cloudControl = cloudController.GetComponent<cloud_spawner>();

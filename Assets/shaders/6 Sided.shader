@@ -3,6 +3,9 @@
 Shader "Skybox/6 Sided" {
 Properties {
     _Tint ("Tint Color", Color) = (.5, .5, .5, .5)
+    _LightMult("light multilpier", Range(0, 1)) = 1
+    _LightPow("light power", Range(0, 5)) = 1
+    _Min("min", Range(0, 1)) = 1
     [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0
     _Rotation ("Rotation", Range(0, 360)) = 0
     [NoScaleOffset] _FrontTex ("Front [+Z]   (HDR)", 2D) = "grey" {}
@@ -23,6 +26,9 @@ SubShader {
     half4 _Tint;
     half _Exposure;
     float _Rotation;
+    uniform float _LightMult;
+    uniform float _LightPow;
+    uniform float _Min;
 
     float3 RotateAroundYInDegrees (float3 vertex, float degrees)
     {
@@ -40,6 +46,7 @@ SubShader {
     };
     struct v2f {
         float4 vertex : SV_POSITION;
+        float3 wpos : TEXCOORD1;
         float2 texcoord : TEXCOORD0;
         UNITY_VERTEX_OUTPUT_STEREO
     };
@@ -50,15 +57,21 @@ SubShader {
         UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
         float3 rotated = RotateAroundYInDegrees(v.vertex, _Rotation);
         o.vertex = UnityObjectToClipPos(rotated);
+        o.wpos = mul(unity_ObjectToWorld, v.vertex);
         o.texcoord = v.texcoord;
         return o;
     }
     half4 skybox_frag (v2f i, sampler2D smp, half4 smpDecode)
     {
         half4 tex = tex2D (smp, i.texcoord);
-        half3 c = DecodeHDR (tex, smpDecode);
+        half3 c = _Tint;
+        half3 stars = DecodeHDR (tex, smpDecode);
         c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
         c *= _Exposure;
+        float n = pow(dot(normalize(i.wpos), normalize(_WorldSpaceLightPos0)) + 1.0, _LightPow) * _LightMult + _Min;
+        // float dist = pow(length(i.wpos - (-500000.0 * _WorldSpaceLightPos0)), _LightPow);
+        // c.rgb *= dist/1000000.0 * _LightMult;
+        c.rgb *= n;
         return half4(c, 1);
     }
     ENDCG
@@ -73,7 +86,7 @@ SubShader {
         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_FrontTex, _FrontTex_HDR); }
         ENDCG
     }
-    Pass{
+    Pass {
         CGPROGRAM
         #pragma vertex vert
         #pragma fragment frag
