@@ -33,7 +33,8 @@ public class cloud_spawner : MonoBehaviour
 
     public Vector3 center;
 
-    public GameObject[] colors;
+    public GameObject[] colorObjects;
+    public colorSet[] colors;
 
     public Material skyboxMaterial;
 
@@ -43,53 +44,56 @@ public class cloud_spawner : MonoBehaviour
 
     private GameObject[] clouds;
 
-    private float change = 1.0f;
-    public float changeRate;
-    private GameObject previousColorSet;
-    private GameObject currentColorSet;
+    private colorSet currentColorSet;
+
+    public GameObject directionalLight;
+
+    public float lightDirectionChangeRate;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.setColorSet(0);
-        this.previousColorSet = this.currentColorSet;
-
+        this.loadColors();
         Application.targetFrameRate = 60;
         clouds = new GameObject[numClouds];
         instantiateClouds();
+    }
+
+    private void loadColors() {
+        colors = new colorSet[colorObjects.Length];
+        for (int i = 0; i < colorObjects.Length; i++) {
+            colors[i] = colorObjects[i].GetComponent<colorSetMonoBehaviour>().getColorSet();
+        }
+
+        // set the initial color
+        colors[2].currentMagnitude = 1.0f;
+        currentColorSet = new colorSet();
+        currentColorSet.SetNewColorSet(colors[2]);
     }
 
     // Update is called once per frame
     void Update()
     {
         this.center = plane.transform.position;
-        this.setSkyboxColor(getCurrentColorSet().skyColor);
-        this.handleColorSetTransition();
 
-        if (Input.GetKeyDown("1"))
-        {
-            this.setColorSet(0);
-            this.startColorTransition();
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            this.setColorSet(1);
-            this.startColorTransition();
-        }
-        if (Input.GetKeyDown("3"))
-        {
-            this.setColorSet(2);
-            this.startColorTransition();
-        }
-        if (Input.GetKeyDown("4"))
-        {
-            this.setColorSet(3);
-            this.startColorTransition();
-        }
+        this.currentColorSet.SetNewColorSet(this.calculateCloudSetSum());
+
+        this.setSkyboxColor(getCurrentColorSet().skyColor);
 
         for (int i = 0; i < clouds.Length; i++) {
             this.setCloudMaterialProperties(clouds[i]);
         }
+
+        directionalLight.transform.Rotate(0.0f, lightDirectionChangeRate * Time.deltaTime, 0.0f);
+        float sunDown = (directionalLight.transform.forward.y);
+        if (sunDown < 0.0f) {
+            sunDown = 0.0f;
+        } 
+
+        float propDay = 1.0f - sunDown;
+        float propNight = sunDown;
+        this.colors[2].currentMagnitude = propDay;
+        this.colors[1].currentMagnitude = propNight;
     }
 
     public GameObject[] instantiateClouds() {
@@ -98,14 +102,10 @@ public class cloud_spawner : MonoBehaviour
             GameObject cloud = Instantiate(cloudPrefabs[prefabIndex]);
 
             cloud.transform.position = getPosition();
-
             cloud.transform.localScale *= getScale();
-
             cloud.transform.forward = getRotation();
 
-
             int colorIndex = Random.Range(0, getCurrentColors().Length);
-
 
             cloud.AddComponent<cloud>();
             cloud.GetComponent<cloud>().baseColor = getCurrentColors()[colorIndex];
@@ -116,7 +116,6 @@ public class cloud_spawner : MonoBehaviour
             cloud.GetComponent<cloud>().fadeRate = fadeRate;
             clouds[i] = cloud;
 
-
             setCloudMaterialProperties(cloud);
         }
 
@@ -125,29 +124,16 @@ public class cloud_spawner : MonoBehaviour
 
     private void setCloudMaterialProperties(GameObject cloud) {
         int colorIndex = cloud.GetComponent<cloud>().colorIndex;
-        Color target = transitionColor(getCurrentColorSet().colors[colorIndex], getPreviousColorSet().colors[colorIndex]);
+        Color target = getCurrentColorSet().colors[colorIndex];
 
         cloud.GetComponent<Renderer>().material.SetVector("_Color", target);
-        cloud.GetComponent<Renderer>().material.SetFloat("_Glossiness", transitionFloat(getCurrentColorSet().cloudGloss, this.getPreviousColorSet().cloudGloss));
-        cloud.GetComponent<Renderer>().material.SetFloat("_RimAmount", transitionFloat(getCurrentColorSet().cloudRim, this.getPreviousColorSet().cloudRim));
-        cloud.GetComponent<Renderer>().material.SetVector("_RimColor", transitionColor(getCurrentColorSet().rimColor, this.getPreviousColorSet().rimColor));
-        cloud.GetComponent<Renderer>().material.SetVector("_SpecularColor", transitionColor(getCurrentColorSet().glossColor, this.getPreviousColorSet().glossColor));
-        cloud.GetComponent<Renderer>().material.SetFloat("_BackLightStrength",transitionFloat(getCurrentColorSet().backlightStrength, this.getPreviousColorSet().backlightStrength));
-        cloud.GetComponent<Renderer>().material.SetFloat("_BackLightPower", transitionFloat(getCurrentColorSet().backlightPower, this.getPreviousColorSet().backlightPower));
-        cloud.GetComponent<Renderer>().material.SetVector("_BacklightColor", transitionColor(getCurrentColorSet().backlightColor, this.getPreviousColorSet().backlightColor));
-    }
-
-    public void handleColorSetTransition() {
-        if (this.change > 1.0f) {
-            this.previousColorSet = this.currentColorSet;
-            return;
-        }
-
-        this.change += changeRate;
-    }
-
-    public void startColorTransition() {
-        this.change = 0.0f;
+        cloud.GetComponent<Renderer>().material.SetFloat("_Glossiness", getCurrentColorSet().cloudGloss);
+        cloud.GetComponent<Renderer>().material.SetFloat("_RimAmount", getCurrentColorSet().cloudRim);
+        cloud.GetComponent<Renderer>().material.SetVector("_RimColor", getCurrentColorSet().rimColor);
+        cloud.GetComponent<Renderer>().material.SetVector("_SpecularColor", getCurrentColorSet().glossColor);
+        cloud.GetComponent<Renderer>().material.SetFloat("_BackLightStrength",getCurrentColorSet().backlightStrength);
+        cloud.GetComponent<Renderer>().material.SetFloat("_BackLightPower", getCurrentColorSet().backlightPower);
+        cloud.GetComponent<Renderer>().material.SetVector("_BacklightColor", getCurrentColorSet().backlightColor);
     }
 
     public float GetCloudMoveSpeed() {
@@ -192,32 +178,26 @@ public class cloud_spawner : MonoBehaviour
 
     private colorSet getCurrentColorSet() {
         
-        return this.currentColorSet.GetComponent<colorSet>();
+        return this.currentColorSet;
     }   
-    
-    private colorSet getPreviousColorSet() {
-        
-        return this.previousColorSet.GetComponent<colorSet>();
-    }
-
-    private void setColorSet(int i) {
-        this.currentColorSet = colors[i];
-    }
 
     private void setSkyboxColor(Color c) {
-        skyboxMaterial.SetColor("_Tint", transitionColor(getCurrentColorSet().skyColor, getPreviousColorSet().skyColor));
+        skyboxMaterial.SetColor("_Tint", getCurrentColorSet().skyColor);
     }
 
-    private float transitionFloat(float f1, float f2) {
-        float prop = change / 1.0f;
+    private colorSet calculateCloudSetSum() {
+        colorSet result = new colorSet();
+        
+        // assume that we have atleast one set already, and every set has the same number of colors
+        result.colors = new Color[this.colors[0].colors.Length];
+        result.cloudMaterial = this.colors[0].cloudMaterial;
 
-        float c = f2 * (1.0f - prop) + (prop) * f1;
-        return c;
-    }
+        for (int i = 0; i < colors.Length; i++) {
+            colors[i].addToSetWithMagnitude(result);
+        }
 
-    private Color transitionColor(Color c1, Color c2) {
-        float prop = change / 1.0f;
-        Color c = c2 * (1.0f - prop) + (prop) * c1;
-        return c;
+        print(this.colors[0].colors[0]);
+
+        return result;
     }
 }

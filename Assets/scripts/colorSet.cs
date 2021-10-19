@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class colorSet : MonoBehaviour
+public class colorSet
 {
-
     public Color[] colors;
 
     public Color skyColor;
@@ -21,15 +20,36 @@ public class colorSet : MonoBehaviour
     public float backlightPower;
     public Color backlightColor;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public float currentMagnitude = 0.0f;
+
+    public void addToSetWithMagnitude(colorSet addTo) {
+
+        for (int i = 0; i < colors.Length; i++) {
+            addTo.colors[i] += this.colors[i] * currentMagnitude;
+        }
+
+        addTo.skyColor += this.skyColor * currentMagnitude;
+        addTo.cloudGloss += this.cloudGloss * currentMagnitude;
+        addTo.cloudRim += this.cloudRim * currentMagnitude;
+        addTo.glossColor += this.glossColor * currentMagnitude;
+        addTo.backlightStrength += this.backlightStrength * currentMagnitude;
+        addTo.backlightPower += this.backlightPower * currentMagnitude;
+        addTo.backlightColor += this.backlightColor * currentMagnitude;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SetNewColorSet(colorSet c) {
+        this.colors = new Color[c.colors.Length];
+        for (int i = 0; i < this.colors.Length; i++) {
+            this.colors[i] = c.colors[i];
+        }
+
+        this.skyColor = c.skyColor;
+        this.cloudMaterial = c.cloudMaterial;
+        this.cloudGloss = c.cloudGloss;
+        this.cloudRim = c.cloudRim;
+        this.glossColor = c.glossColor;
+        this.backlightStrength = c.backlightStrength;
+        this.backlightPower = c.backlightPower;
+        this.backlightColor = c.backlightColor;
     }
 }

@@ -178,14 +178,15 @@ MonoBehaviour:
   cloudMoveDirection: {x: -1, y: 0.6, z: 0}
   fadeRate: 0.005
   center: {x: 0, y: 0, z: 0}
-  colors:
+  colorObjects:
   - {fileID: 627561687}
   - {fileID: 1205886405}
   - {fileID: 1847304171}
   skyboxMaterial: {fileID: 2100000, guid: aae1fb36ea67d46e2986924991f04b46, type: 2}
   camera: {fileID: 963194225}
   plane: {fileID: 1781025838}
-  changeRate: 0.001
+  directionalLight: {fileID: 705507993}
+  lightDirectionChangeRate: 10
 --- !u!4 &15667984
 Transform:
   m_ObjectHideFlags: 0
@@ -5419,6 +5420,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f40d82b34aef14e378395c822c1054f1, type: 3}
+--- !u!1 &568121858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568121859}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &568121859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568121858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 160.83554, y: 137.95142, z: 1221.2042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &627561687
 GameObject:
   m_ObjectHideFlags: 0
@@ -5459,22 +5490,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 627561687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a31f0d2b1f3441c2bbe87e28d459faf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2da9c40c78f4848adf9b0007519d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - {r: 0.9433962, g: 0.93538624, b: 0.7698469, a: 1}
-  - {r: 0.7609469, g: 0.86170256, b: 0.9433962, a: 1}
-  - {r: 0.9433962, g: 0.7609469, b: 0.8245278, a: 1}
-  skyColor: {r: 0.9056604, g: 0.6963332, b: 0.90211207, a: 1}
-  cloudMaterial: {fileID: 0}
-  cloudGloss: 1
-  cloudRim: 1
-  rimColor: {r: 0.9433962, g: 0.86774653, b: 0.86774653, a: 0}
-  glossColor: {r: 0.8018868, g: 0.7905393, b: 0.7905393, a: 0}
-  backlightStrength: 1
+  - {r: 0.9433962, g: 0.93966484, b: 0.6986472, a: 1}
+  - {r: 0.68765575, g: 0.851634, b: 0.9528302, a: 1}
+  - {r: 0.9433962, g: 0.6541474, b: 0.92683643, a: 1}
+  skyColor: {r: 0.9433962, g: 0.6719473, b: 0.93776906, a: 1}
+  cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
+  cloudGloss: 2
+  cloudRim: 10
+  rimColor: {r: 0.9811321, g: 0.94179696, b: 0.68956923, a: 0}
+  glossColor: {r: 0.9528302, g: 0.9467344, b: 0.73260057, a: 0}
+  backlightStrength: 0.5
   backlightPower: 1
-  backlightColor: {r: 0.990566, g: 0.9755025, b: 0.6868548, a: 0}
+  backlightColor: {r: 0.990566, g: 0.9810221, b: 0.6868548, a: 0}
+  currentMagnitude: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5560,13 +5592,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.5096966, y: 0.66267556, z: -0.4533527, w: 0.30909836}
+  m_LocalRotation: {x: -0.6080757, y: 0.3690686, z: -0.46986437, w: -0.5227426}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 66.34, y: 187.514, z: 80.047}
+  m_LocalEulerAnglesHint: {x: 100.71701, y: -446.32, z: -13.1779785}
 --- !u!1001 &726758257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15921,22 +15953,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1205886405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a31f0d2b1f3441c2bbe87e28d459faf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2da9c40c78f4848adf9b0007519d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - {r: 0.30971876, g: 0.38002607, b: 0.4528302, a: 1}
-  - {r: 0.25511748, g: 0.32952213, b: 0.3679245, a: 1}
-  - {r: 0.20830366, g: 0.28251138, b: 0.2924528, a: 1}
-  skyColor: {r: 0.25471696, g: 0.3251265, b: 0.33962262, a: 1}
-  cloudMaterial: {fileID: 0}
+  - {r: 0.25858846, g: 0.2787478, b: 0.3679245, a: 1}
+  - {r: 0.23776254, g: 0.3226508, b: 0.3679245, a: 1}
+  - {r: 0.24936555, g: 0.19793521, b: 0.3018868, a: 1}
+  skyColor: {r: 0.2509804, g: 0.27825382, b: 0.3764706, a: 1}
+  cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
   cloudGloss: 0
   cloudRim: 1
-  rimColor: {r: 0.41451588, g: 0.6964127, b: 0.764151, a: 0}
-  glossColor: {r: 0.5310609, g: 0.66782767, b: 0.735849, a: 0}
-  backlightStrength: 0.5
-  backlightPower: 0
-  backlightColor: {r: 0.6933962, g: 0.8917238, b: 0.9245283, a: 0}
+  rimColor: {r: 0.51001245, g: 0.6653549, b: 0.6886792, a: 0}
+  glossColor: {r: 0, g: 0, b: 0, a: 0}
+  backlightStrength: 1
+  backlightPower: 1
+  backlightColor: {r: 0.38447848, g: 0.55538064, b: 0.6037736, a: 0}
+  currentMagnitude: 0
 --- !u!4 &1205886407
 Transform:
   m_ObjectHideFlags: 0
@@ -30655,22 +30688,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1847304171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a31f0d2b1f3441c2bbe87e28d459faf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2da9c40c78f4848adf9b0007519d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - {r: 0.740566, g: 0.8713917, b: 1, a: 1}
-  - {r: 0.990566, g: 0.9815875, b: 0.76161444, a: 1}
-  - {r: 0.9716981, g: 0.7570546, b: 0.64627093, a: 1}
-  skyColor: {r: 0.9811321, g: 0.9695819, b: 0.64328945, a: 1}
-  cloudMaterial: {fileID: 0}
-  cloudGloss: 0
-  cloudRim: 0
-  rimColor: {r: 0, g: 0, b: 0, a: 0}
-  glossColor: {r: 0, g: 0, b: 0, a: 0}
-  backlightStrength: 0
-  backlightPower: 0
-  backlightColor: {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.6740388, g: 0.9339623, b: 0.72177297, a: 1}
+  - {r: 0.9400095, g: 0.9433962, b: 0.7075472, a: 1}
+  - {r: 0.64760596, g: 0.9217491, b: 0.9339623, a: 1}
+  skyColor: {r: 0.6966447, g: 0.8968739, b: 0.9528302, a: 1}
+  cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
+  cloudGloss: 1
+  cloudRim: 1
+  rimColor: {r: 0.9716981, g: 0.95145303, b: 0.6737718, a: 0}
+  glossColor: {r: 0.9622642, g: 0.95627576, b: 0.6853863, a: 0}
+  backlightStrength: 1
+  backlightPower: 1
+  backlightColor: {r: 0.9716981, g: 0.9714633, b: 0.71960664, a: 0}
+  currentMagnitude: 0
 --- !u!4 &1847304173
 Transform:
   m_ObjectHideFlags: 0
