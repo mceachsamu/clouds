@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cloud : MonoBehaviour
 {
-    public cloud_spawner cloudSpawner;
+    public cloudSpawner cloudSpawner;
 
     public float cloudMoveSpeed;
 
@@ -34,27 +34,27 @@ public class cloud : MonoBehaviour
         pos += cloudSpawner.cloudMoveDirection * cloudMoveSpeed;
 
         if (this.transform.position.x > cloudSpawner.center.x + cloudSpawner.getRangeX()/2.0f) {
-            resetPosition = cloudSpawner.getPosition();
+            resetPosition = cloudSpawner.generateCloudPosition();
             fading = true;
         }
         if (this.transform.position.x < cloudSpawner.center.x -cloudSpawner.getRangeX()/2.0f) {
-            resetPosition = cloudSpawner.getPosition();
+            resetPosition = cloudSpawner.generateCloudPosition();
             fading = true;
         }
         if (this.transform.position.z > cloudSpawner.center.z + cloudSpawner.getRangeZ()/2.0f) {
-            resetPosition = cloudSpawner.getPosition();
+            resetPosition = cloudSpawner.generateCloudPosition();
             fading = true;
         }
         if (this.transform.position.z < cloudSpawner.center.z - cloudSpawner.getRangeZ()/2.0f) {
-            resetPosition = cloudSpawner.getPosition();
+            resetPosition = cloudSpawner.generateCloudPosition();
             fading = true;
         }
         if (this.transform.position.y > cloudSpawner.center.y + cloudSpawner.getRangeY()/2.0f) {
-            resetPosition = cloudSpawner.getPosition();
+            resetPosition = cloudSpawner.generateCloudPosition();
             fading = true;
         }
         if (this.transform.position.y < cloudSpawner.center.y -cloudSpawner.getRangeY()/2.0f) {
-            resetPosition = cloudSpawner.getPosition();
+            resetPosition = cloudSpawner.generateCloudPosition();
             fading = true;
         }
 

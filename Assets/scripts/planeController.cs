@@ -93,14 +93,11 @@ public class planeController : MonoBehaviour
 
         if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
         {
-            print("hit");
             colliderController collide = collider.GetComponent<colliderController>();
             collide.SetTransparencyFade(getCollisionParticleFade());
-            cloud_spawner cloudControl = cloudController.GetComponent<cloud_spawner>();
+            cloudSpawner cloudControl = cloudController.GetComponent<cloudSpawner>();
             cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
-            collide.setMoveSpeed(cloudControl.GetCloudMoveSpeed()/10.0f);
-            collide.setMoveDirection(cloudControl.cloudMoveDirection);
-            collide.baseColor = hit.transform.gameObject.GetComponent<cloud>().baseColor;
+            collide.baseColor = cloud.baseColor;
             collide.turnOn();
         }
     }

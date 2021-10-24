@@ -169,9 +169,9 @@ MonoBehaviour:
   minDistance: 0
   minScale: 2
   maxScale: 4
-  rangeX: 3000
-  rangeY: 3000
-  rangeZ: 3000
+  rangeX: 2000
+  rangeY: 2000
+  rangeZ: 2000
   numClouds: 1000
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
@@ -186,7 +186,7 @@ MonoBehaviour:
   camera: {fileID: 963194225}
   plane: {fileID: 1781025838}
   directionalLight: {fileID: 705507993}
-  lightDirectionChangeRate: 10
+  lightDirectionChangeRate: 3
 --- !u!4 &15667984
 Transform:
   m_ObjectHideFlags: 0
@@ -5138,27 +5138,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalScale.x
-      value: 121.929
+      value: 353.36243
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalScale.y
-      value: 121.929
+      value: 353.36243
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalScale.z
-      value: 121.929
+      value: 353.36243
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.78863
+      value: 2.3283
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 65.585
+      value: 167.46
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1305.8
+      value: 1321.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5503,9 +5503,9 @@ MonoBehaviour:
   cloudRim: 10
   rimColor: {r: 0.9811321, g: 0.94179696, b: 0.68956923, a: 0}
   glossColor: {r: 0.9528302, g: 0.9467344, b: 0.73260057, a: 0}
-  backlightStrength: 0.5
+  backlightStrength: 1
   backlightPower: 1
-  backlightColor: {r: 0.990566, g: 0.9810221, b: 0.6868548, a: 0}
+  backlightColor: {r: 0.9811321, g: 0.9749021, b: 0.8191527, a: 0}
   currentMagnitude: 0
 --- !u!1 &705507993
 GameObject:
@@ -15957,15 +15957,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - {r: 0.25858846, g: 0.2787478, b: 0.3679245, a: 1}
-  - {r: 0.23776254, g: 0.3226508, b: 0.3679245, a: 1}
-  - {r: 0.24936555, g: 0.19793521, b: 0.3018868, a: 1}
-  skyColor: {r: 0.2509804, g: 0.27825382, b: 0.3764706, a: 1}
+  - {r: 0.38972944, g: 0.4143295, b: 0.5471698, a: 1}
+  - {r: 0.34242612, g: 0.4650625, b: 0.5377358, a: 1}
+  - {r: 0.35754126, g: 0.2763439, b: 0.4339623, a: 1}
+  skyColor: {r: 0.24181205, g: 0.2674244, b: 0.3584906, a: 1}
   cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
-  cloudGloss: 0
+  cloudGloss: 0.1
   cloudRim: 1
   rimColor: {r: 0.51001245, g: 0.6653549, b: 0.6886792, a: 0}
-  glossColor: {r: 0, g: 0, b: 0, a: 0}
+  glossColor: {r: 0.37402102, g: 0.3857403, b: 0.38679248, a: 0}
   backlightStrength: 1
   backlightPower: 1
   backlightColor: {r: 0.38447848, g: 0.55538064, b: 0.6037736, a: 0}
@@ -30698,7 +30698,7 @@ MonoBehaviour:
   skyColor: {r: 0.6966447, g: 0.8968739, b: 0.9528302, a: 1}
   cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
   cloudGloss: 1
-  cloudRim: 1
+  cloudRim: 5
   rimColor: {r: 0.9716981, g: 0.95145303, b: 0.6737718, a: 0}
   glossColor: {r: 0.9622642, g: 0.95627576, b: 0.6853863, a: 0}
   backlightStrength: 1
