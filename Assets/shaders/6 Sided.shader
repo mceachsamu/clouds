@@ -72,6 +72,7 @@ SubShader {
         // float dist = pow(length(i.wpos - (-500000.0 * _WorldSpaceLightPos0)), _LightPow);
         // c.rgb *= dist/1000000.0 * _LightMult;
         c.rgb *= n;
+        c.rgb += stars;
         return half4(c, 1);
     }
     ENDCG

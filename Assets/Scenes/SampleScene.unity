@@ -15766,7 +15766,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 60000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -15890,7 +15890,8 @@ MonoBehaviour:
   plane: {fileID: 1781025838}
   offsetZ: 1
   offsetY: 0
-  moveSpeed: 0.5
+  moveToPositionRate: 0.05
+  moveToRotationRate: 0.1
 --- !u!1001 &1098429541
 PrefabInstance:
   m_ObjectHideFlags: 0

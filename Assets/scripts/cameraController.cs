@@ -10,7 +10,7 @@ public class cameraController : MonoBehaviour
     public float offsetZ;
     public float offsetY;
 
-    private Vector3 targetPosition;
+        private Vector3 targetPosition;
     private Vector3 targetRotation;
     
     public float moveToPositionRate;
@@ -43,7 +43,7 @@ public class cameraController : MonoBehaviour
     public void setTargetLocation() {
         Vector3 diff = plane.transform.position - targetPosition;
 
-        this.targetPosition = targetPosition + diff * moveToPositionRate;
+        this.targetPosition = targetPosition + diff * moveToPositionRate * diff.magnitude;
 
         Vector3 dirDiff = plane.GetComponent<planeController>().getForward() - targetRotation;
         this.targetRotation = targetRotation + dirDiff * moveToRotationRate;
