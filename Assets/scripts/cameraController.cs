@@ -10,19 +10,26 @@ public class cameraController : MonoBehaviour
     public float offsetZ;
     public float offsetY;
 
+    private Vector3 targetPosition;
+    private Vector3 targetRotation;
+    
+    public float moveToPositionRate;
+    public float moveToRotationRate;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.targetPosition = plane.transform.position;
+        this.targetRotation = plane.GetComponent<planeController>().getForward();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 startDir = this.transform.forward;
-        this.transform.position = plane.transform.position;
+        this.setTargetLocation();
+        this.transform.position = this.targetPosition;
 
-        Vector3 planeForward = plane.GetComponent<planeController>().getForward();
+        Vector3 planeForward = this.targetRotation;//plane.GetComponent<planeController>().getForward();
         this.transform.forward = planeForward;
         
         Vector3 planeUp = plane.GetComponent<planeController>().getUp();
@@ -31,5 +38,14 @@ public class cameraController : MonoBehaviour
 
         Vector3 cameraForward = new Vector3(planeForward.x, planeForward.y, this.transform.forward.z);
         this.transform.forward = cameraForward;
+    }
+
+    public void setTargetLocation() {
+        Vector3 diff = plane.transform.position - targetPosition;
+
+        this.targetPosition = targetPosition + diff * moveToPositionRate;
+
+        Vector3 dirDiff = plane.GetComponent<planeController>().getForward() - targetRotation;
+        this.targetRotation = targetRotation + dirDiff * moveToRotationRate;
     }
 }
