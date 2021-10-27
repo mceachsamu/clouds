@@ -95,9 +95,9 @@ SubShader {
         half3 stars = DecodeHDR (tex, smpDecode);
         c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
         c *= _Exposure;
-        float n = pow(dot(normalize(-1.0 * i.wpos), normalize(_WorldSpaceLightPos0)) + 1.0, _LightPow) * _LightMult + _Min;
+        float n = pow(dot(normalize(i.wpos), normalize(_WorldSpaceLightPos0)) + 1.0, _LightPow) * _LightMult + _Min;
 
-        // c.rgb *= n;
+        c.rgb *= n;
         c.rgb += stars;
         return half4(c, 1);
     }

@@ -59,17 +59,19 @@ public class weatherController : MonoBehaviour
         this.setSkyboxColor(getCurrentColorSet().skyColor);
 
         directionalLight.transform.Rotate(lightDirectionChangeRate * Time.deltaTime, 0.0f, 0.0f);
-        float sunDown = (directionalLight.transform.forward.y) - 0.3f;
+        float sunDown = (directionalLight.transform.forward.y) + 0.5f;
         if (sunDown < 0.0f) {
             sunDown = 0.0f;
         }
 
-        float propDay = 1.0f - sunDown;
-        float propNight = sunDown;
+        float propDay = Mathf.Clamp(1.0f - sunDown, 0.0f, 1.0f);
+        float propNight = Mathf.Clamp(sunDown, 0.0f, 1.0f);
         this.colors[2].currentMagnitude = propDay;
         this.colors[1].currentMagnitude = propNight;
 
         setSkyboxRotation();
+
+        this.center = plane.transform.position;
     }
 
     public Vector3 getCenter() {
@@ -90,9 +92,6 @@ public class weatherController : MonoBehaviour
 
     private void setSkyboxRotation() {
         Vector3 rotation = directionalLight.transform.rotation.eulerAngles;
-        // rotation.x -= 90.0f;
-        // float rotation = (rotationDir) * 90.0f + 90.0f;
-        print(rotation);
 
         skyboxMaterial.SetVector("_Rotation", rotation);
     }
