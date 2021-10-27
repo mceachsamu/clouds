@@ -43,6 +43,7 @@ public class cloudSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.center = weatherControll.center;
         // set the material properties for each cloud
         for (int i = 0; i < clouds.Length; i++) {
             this.setCloudMaterialProperties(clouds[i]);

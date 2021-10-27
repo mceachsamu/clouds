@@ -6,8 +6,9 @@ Properties {
     _LightMult("light multilpier", Range(0, 1)) = 1
     _LightPow("light power", Range(0, 5)) = 1
     _Min("min", Range(0, 1)) = 1
+    _Offset("offset", Range(0, 1)) = 1
     [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0
-    _Rotation ("Rotation", Range(0, 360)) = 0
+    _Rotation ("Rotation", Vector) = (0.0, 0.0, 0.0)
     [NoScaleOffset] _FrontTex ("Front [+Z]   (HDR)", 2D) = "grey" {}
     [NoScaleOffset] _BackTex ("Back [-Z]   (HDR)", 2D) = "grey" {}
     [NoScaleOffset] _LeftTex ("Left [+X]   (HDR)", 2D) = "grey" {}
@@ -25,10 +26,11 @@ SubShader {
 
     half4 _Tint;
     half _Exposure;
-    float _Rotation;
+    float3 _Rotation;
     uniform float _LightMult;
     uniform float _LightPow;
     uniform float _Min;
+    uniform float _Offset;
 
     float3 RotateAroundYInDegrees (float3 vertex, float degrees)
     {
@@ -38,6 +40,28 @@ SubShader {
         float2x2 m = float2x2(cosa, -sina, sina, cosa);
         return float3(mul(m, vertex.xz), vertex.y).xzy;
     }
+
+    float3 RotateAroundZXInDegrees (float3 vertex, float degrees)
+    {
+        float alpha = degrees * UNITY_PI / 180.0;
+        float sina, cosa;
+        sincos(alpha, sina, cosa);
+        float2x2 m = float2x2(cosa, -sina, sina, cosa);
+        return float3(mul(m, vertex.xz), vertex.y).xzy;
+    }
+
+    float4x4 rotationMatrix(float3 axis, float angle)
+     {
+         axis = normalize(axis);
+         float s = sin(angle);
+         float c = cos(angle);
+         float oc = 1.0 - c;
+         
+         return float4x4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
+                     oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
+                     oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
+                     0.0,                                0.0,                                0.0,                                1.0);
+     }
 
     struct appdata_t {
         float4 vertex : POSITION;
@@ -55,23 +79,25 @@ SubShader {
         v2f o;
         UNITY_SETUP_INSTANCE_ID(v);
         UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-        float3 rotated = RotateAroundYInDegrees(v.vertex, _Rotation);
-        o.vertex = UnityObjectToClipPos(rotated);
+        v.vertex.xyz = mul( rotationMatrix( normalize(float3(0.0, 0.0, 1.0).xyz), _Rotation.z * UNITY_PI / 180.0), v.vertex.xyz).xyz;
+        v.vertex.xyz = mul( rotationMatrix( normalize(float3(1.0, 0.0, 0.0).xyz), (_Rotation.x) * UNITY_PI / 180.0), v.vertex.xyz).xyz;
+        v.vertex.xyz = mul( rotationMatrix( normalize(float3(0.0, 1.0, 0.0).xyz), _Rotation.y * UNITY_PI / 180.0), v.vertex.xyz).xyz;
+        v.vertex.xyz = mul( rotationMatrix( normalize(float3(1.0, 0.0, 0.0).xyz), (-90.0) * UNITY_PI / 180.0), v.vertex.xyz).xyz;
+        o.vertex = UnityObjectToClipPos(v.vertex);
         o.wpos = mul(unity_ObjectToWorld, v.vertex);
         o.texcoord = v.texcoord;
         return o;
     }
     half4 skybox_frag (v2f i, sampler2D smp, half4 smpDecode)
     {
-        half4 tex = tex2D (smp, i.texcoord);
+        half4 tex = tex2D (smp, i.texcoord + _Offset);
         half3 c = _Tint;
         half3 stars = DecodeHDR (tex, smpDecode);
         c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
         c *= _Exposure;
-        float n = pow(dot(normalize(i.wpos), normalize(_WorldSpaceLightPos0)) + 1.0, _LightPow) * _LightMult + _Min;
-        // float dist = pow(length(i.wpos - (-500000.0 * _WorldSpaceLightPos0)), _LightPow);
-        // c.rgb *= dist/1000000.0 * _LightMult;
-        c.rgb *= n;
+        float n = pow(dot(normalize(-1.0 * i.wpos), normalize(_WorldSpaceLightPos0)) + 1.0, _LightPow) * _LightMult + _Min;
+
+        // c.rgb *= n;
         c.rgb += stars;
         return half4(c, 1);
     }

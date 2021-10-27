@@ -167,14 +167,14 @@ MonoBehaviour:
   minDistance: 0
   minScale: 2
   maxScale: 4
-  rangeX: 1000
-  rangeY: 1000
-  rangeZ: 1000
-  numClouds: 700
+  rangeX: 2000
+  rangeY: 2000
+  rangeZ: 2000
+  numClouds: 1000
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: -1, y: 0.6, z: 0}
-  fadeRate: 0.005
+  fadeRate: 0.01
   center: {x: 0, y: 0, z: 0}
 --- !u!4 &15667984
 Transform:
@@ -5648,13 +5648,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: -0.6080757, y: 0.3690686, z: -0.46986437, w: -0.5227426}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 100.71701, y: -446.32, z: -13.1779785}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &726758257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10840,11 +10840,12 @@ MonoBehaviour:
   - {fileID: 1205886405}
   - {fileID: 1847304171}
   skyboxMaterial: {fileID: 2100000, guid: aae1fb36ea67d46e2986924991f04b46, type: 2}
-  lightDirectionChangeRate: 5
+  lightDirectionChangeRate: 15
   directionalLight: {fileID: 705507993}
   cloudSpawnerObjects:
   - {fileID: 15667982}
   - {fileID: 559115972}
+  center: {x: 0, y: 0, z: 0}
 --- !u!4 &901674862
 Transform:
   m_ObjectHideFlags: 0
@@ -30809,7 +30810,7 @@ MonoBehaviour:
   - {r: 0.6740388, g: 0.9339623, b: 0.72177297, a: 1}
   - {r: 0.9400095, g: 0.9433962, b: 0.7075472, a: 1}
   - {r: 0.64760596, g: 0.9217491, b: 0.9339623, a: 1}
-  skyColor: {r: 0.6966447, g: 0.8968739, b: 0.9528302, a: 1}
+  skyColor: {r: 0.5304379, g: 0.70641077, b: 0.754717, a: 1}
   cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
   cloudGloss: 1
   cloudRim: 5

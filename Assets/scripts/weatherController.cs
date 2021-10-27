@@ -18,7 +18,7 @@ public class weatherController : MonoBehaviour
 
     private cloudSpawner[] cloudSpawners;
 
-    private Vector3 center;
+    public Vector3 center;
 
     // Start is called before the first frame update
     void Start()
@@ -58,8 +58,8 @@ public class weatherController : MonoBehaviour
         this.currentColorSet.SetNewColorSet(this.calculateCloudSetSum());
         this.setSkyboxColor(getCurrentColorSet().skyColor);
 
-        directionalLight.transform.Rotate(0.0f, lightDirectionChangeRate * Time.deltaTime, 0.0f);
-        float sunDown = (directionalLight.transform.forward.y);
+        directionalLight.transform.Rotate(lightDirectionChangeRate * Time.deltaTime, 0.0f, 0.0f);
+        float sunDown = (directionalLight.transform.forward.y) - 0.3f;
         if (sunDown < 0.0f) {
             sunDown = 0.0f;
         }
@@ -68,6 +68,8 @@ public class weatherController : MonoBehaviour
         float propNight = sunDown;
         this.colors[2].currentMagnitude = propDay;
         this.colors[1].currentMagnitude = propNight;
+
+        setSkyboxRotation();
     }
 
     public Vector3 getCenter() {
@@ -80,9 +82,19 @@ public class weatherController : MonoBehaviour
 
     public colorSet getCurrentColorSet() {
         return this.currentColorSet;
-    }   
+    }
+
     private void setSkyboxColor(Color c) {
         skyboxMaterial.SetColor("_Tint", getCurrentColorSet().skyColor);
+    }
+
+    private void setSkyboxRotation() {
+        Vector3 rotation = directionalLight.transform.rotation.eulerAngles;
+        // rotation.x -= 90.0f;
+        // float rotation = (rotationDir) * 90.0f + 90.0f;
+        print(rotation);
+
+        skyboxMaterial.SetVector("_Rotation", rotation);
     }
 
     private colorSet calculateCloudSetSum() {
