@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,8 @@ public class planeController : MonoBehaviour
     public float liftPull;
 
     public float baseLift;
+
+    public float stabilisation;
 
     private Rigidbody rb;
 
@@ -60,8 +62,12 @@ public class planeController : MonoBehaviour
 
         // add forward thrust force
         rb.AddForce(this.getForward() * thrust);
+        
+        // stabilize the wings
+        float stabilise = this.stabilisation * this.transform.forward.y;
+        rb.AddTorque(new Vector3(0.0f, 0.0f, stabilise));
 
-        // add our turning torques
+        // add our turning torques  
         if (Input.GetKey("w")) {
             Vector3 direction = this.transform.forward * yTiltRate * - 1.0f;
             rb.AddTorque(direction);
