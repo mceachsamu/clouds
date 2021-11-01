@@ -81,6 +81,7 @@ public class cloudSpawner : MonoBehaviour
         int index = cloudS.colorIndex;
         colorSet currentColorSet = this.weatherControll.getCurrentColorSet();
 
+        cloudS.baseColor = currentColorSet.colors[index];
         cloud.GetComponent<Renderer>().material.SetVector("_Color", currentColorSet.colors[index]);
         cloud.GetComponent<Renderer>().material.SetFloat("_Glossiness", currentColorSet.cloudGloss);
         cloud.GetComponent<Renderer>().material.SetFloat("_RimAmount", currentColorSet.cloudRim);

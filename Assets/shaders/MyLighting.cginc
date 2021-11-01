@@ -57,5 +57,6 @@ float4 getLighting(float3 normal, float3 normalMapNormal, float3 viewDir)
     col += specularColor;
     col += rimColor;
     col += backLighting;
+
     return col * _Saturation;
 }

@@ -7,6 +7,8 @@ public class weatherController : MonoBehaviour
 
     public GameObject plane;
 
+    public Material planeMaterial;
+
     public GameObject[] colorObjects;
     private colorSet[] colors;
     public Material skyboxMaterial;
@@ -17,6 +19,8 @@ public class weatherController : MonoBehaviour
     public GameObject[] cloudSpawnerObjects;
 
     private cloudSpawner[] cloudSpawners;
+
+    private GameObject[] land;
 
     public Vector3 center;
 
@@ -30,6 +34,9 @@ public class weatherController : MonoBehaviour
         for (int i = 0; i < cloudSpawners.Length; i++) {
             cloudSpawners[i].instantiateClouds();
         }
+
+        //load in all the land objects
+        land = GameObject.FindGameObjectsWithTag("land");
     }
 
     private void loadCloudSpawners() {
@@ -47,7 +54,7 @@ public class weatherController : MonoBehaviour
         }
 
         // set the initial color
-        colors[2].currentMagnitude = 1.0f;
+        colors[0].currentMagnitude = 1.0f;
         currentColorSet = new colorSet();
         currentColorSet.SetNewColorSet(colors[2]);
     }
@@ -57,6 +64,8 @@ public class weatherController : MonoBehaviour
     {
         this.currentColorSet.SetNewColorSet(this.calculateCloudSetSum());
         this.setSkyboxColor(getCurrentColorSet().skyColor);
+        this.setPlaneColor();
+        this.setLandColor();
 
         directionalLight.transform.Rotate(lightDirectionChangeRate * Time.deltaTime, 0.0f, 0.0f);
         float sunDown = (directionalLight.transform.forward.y) + 0.5f;
@@ -66,12 +75,23 @@ public class weatherController : MonoBehaviour
 
         float propDay = Mathf.Clamp(1.0f - sunDown, 0.0f, 1.0f);
         float propNight = Mathf.Clamp(sunDown, 0.0f, 1.0f);
-        this.colors[2].currentMagnitude = propDay;
+        this.colors[0].currentMagnitude = propDay;
         this.colors[1].currentMagnitude = propNight;
 
         setSkyboxRotation();
 
         this.center = plane.transform.position;
+    }
+
+    private void setPlaneColor() {
+        planeMaterial.SetVector("_Color", this.getCurrentColorSet().planeColor);
+        planeMaterial.SetVector("_BacklightColor", this.getCurrentColorSet().planeBacklightColor);
+    }
+
+    private void setLandColor() {
+        for (int i = 0; i < land.Length; i++) {
+            land[i].GetComponent<Renderer>().material.SetColor("_Color", this.getCurrentColorSet().landColor);
+        }
     }
 
     public Vector3 getCenter() {

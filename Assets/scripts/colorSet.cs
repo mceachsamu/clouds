@@ -22,6 +22,11 @@ public class colorSet
 
     public float currentMagnitude = 0.0f;
 
+    public Color planeColor;
+    public Color planeBacklightColor;
+
+    public Color landColor;
+
     public void addToSetWithMagnitude(colorSet addTo) {
 
         for (int i = 0; i < colors.Length; i++) {
@@ -35,6 +40,9 @@ public class colorSet
         addTo.backlightStrength += this.backlightStrength * currentMagnitude;
         addTo.backlightPower += this.backlightPower * currentMagnitude;
         addTo.backlightColor += this.backlightColor * currentMagnitude;
+        addTo.planeColor += this.planeColor * currentMagnitude;
+        addTo.planeBacklightColor += this.planeBacklightColor * currentMagnitude;
+        addTo.landColor += this.landColor * currentMagnitude;
     }
 
     public void SetNewColorSet(colorSet c) {
@@ -51,5 +59,8 @@ public class colorSet
         this.backlightStrength = c.backlightStrength;
         this.backlightPower = c.backlightPower;
         this.backlightColor = c.backlightColor;
+        this.planeColor = c.planeColor;
+        this.planeBacklightColor = c.planeBacklightColor;
+        this.landColor = c.landColor;
     }
 }

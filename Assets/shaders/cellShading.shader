@@ -28,6 +28,7 @@
         _BacklightColor("backlight color", Color) = (1.0, 1.0, 1.0, 1.0)
 
         _Transparency("transparency", Range(0.0, 1.0)) = 1.0
+        _CastsShadows("casts shadows", int) = 1.0
     }
 
     SubShader
@@ -40,24 +41,22 @@
             Name "FORWARD"
             Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "RenderType"="Transparent"}
 
-            ZWrite On
-            Lighting Off
+            Cull Back
             Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma target 3.0
 
-            #pragma multi_compile_shadowcaster
             #pragma vertex vert
             #pragma fragment frag
+			#pragma multi_compile_fwdbase nolightmap nodynlightmap novertexlight
             #include "UnityCG.cginc"
-            #pragma multi_compile_fwdbase_fullshadows
+			#include "Lighting.cginc"
             #include "AutoLight.cginc"
-            #include "UnityLightingCommon.cginc"
 
             struct v2f
             {
+                float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
                 float4 wpos : TEXCOORD1;
                 float3 worldNormal : NORMAL;
                 float3 viewDir : TEXCOORD2;
@@ -65,6 +64,7 @@
                 half3 tspace0 : TEXCOORD4; // tangent.x, bitangent.x, normal.x
                 half3 tspace1 : TEXCOORD5; // tangent.y, bitangent.y, normal.y
                 half3 tspace2 : TEXCOORD6; // tangent.z, bitangent.z, normal.z
+                SHADOW_COORDS(7)
             };
 
             sampler2D _MainTex;
@@ -96,13 +96,13 @@
             v2f vert (appdata_tan v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
 
                 o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
                 o.worldNormal =  UnityObjectToWorldNormal(v.normal);
                 o.wpos = mul(unity_ObjectToWorld, v.vertex);
                 o.viewDir = WorldSpaceViewDir(v.vertex);
-				o.screenPos = ComputeScreenPos(o.vertex);
+				o.screenPos = ComputeScreenPos(o.pos);
 
                 half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
                 // compute bitangent from cross product of normal and tangent
@@ -112,6 +112,7 @@
                 o.tspace0 = half3(wTangent.x, wBitangent.x, o.worldNormal.x);
                 o.tspace1 = half3(wTangent.y, wBitangent.y, o.worldNormal.y);
                 o.tspace2 = half3(wTangent.z, wBitangent.z, o.worldNormal.z);
+                TRANSFER_SHADOW(o);
                 return o;
             }
 
@@ -145,10 +146,13 @@
                 //apply saturation
                 col.rgb = col.rgb * _Saturation;
 
-                // float4 shading = GetCellShading(i.wpos, _WorldSpaceLightPos0.xyzw, worldNormal, i.viewDir, col, _LightColor0, _RimColor, _SpecularColor, _RimAmount, _Glossiness);
                 float4 shading = getLighting(worldNormal, worldNormal, i.viewDir);
                 shading.a = _Transparency;
-                return shading * col;
+
+                float4 shadow = SHADOW_ATTENUATION(i);
+                shadow.a = 1.0;
+                float4 final = shading * col * shadow;
+                return final;
             }
             ENDCG
         }
@@ -276,6 +280,8 @@
 
             #include "UnityCG.cginc"
 
+            uniform int _CastsShadows;
+
             struct VertexData {
                 float4 position : POSITION;
                 float3 normal : NORMAL;
@@ -297,20 +303,21 @@
                 float4 frag (Interpolators i) : SV_TARGET {
                     float depth = length(i.lightVec) + unity_LightShadowBias.x;
                     depth *= _LightPositionRange.w;
-                    if (i.position.x > 0.5){
-                        return 0.0;
-                    }
-                    return UnityEncodeCubeShadowDepth(depth);
+                    return 0.0;
                 }
             #else
                 float4 vert (VertexData v) : SV_POSITION {
                     float4 position =
                         UnityClipSpaceShadowCasterPos(v.position.xyz, v.normal);
+                    if (_CastsShadows == 0) {
+                        return 0.0;
+                    }
+                    
                     return UnityApplyLinearShadowBias(position);
                 }
 
                 half4 frag () : SV_TARGET {
-                    return 0;
+                    return 0.0;
                 }
             #endif
 

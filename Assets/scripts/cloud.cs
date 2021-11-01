@@ -23,8 +23,8 @@ public class cloud : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.GetComponent<Renderer>().material.SetFloat("_Transparency", transparency); 
-        this.GetComponent<Renderer>().material.SetVector("_Color", baseColor); 
+        this.GetComponent<Renderer>().material.SetFloat("_Transparency", transparency);
+        this.GetComponent<Renderer>().material.SetVector("_Color", baseColor);
     }
 
     // Update is called once per frame

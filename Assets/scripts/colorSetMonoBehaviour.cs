@@ -20,6 +20,11 @@ public class colorSetMonoBehaviour : MonoBehaviour
     public float backlightPower;
     public Color backlightColor;
 
+    public Color planeColor;
+    public Color planeBacklightColor;
+
+    public Color landColor;
+
     public float currentMagnitude = 0.0f;
 
     public colorSet getColorSet() {
@@ -37,7 +42,10 @@ public class colorSetMonoBehaviour : MonoBehaviour
         c.backlightStrength = this.backlightStrength;
         c.backlightPower = this.backlightPower;
         c.backlightColor = this.backlightColor;
-
+        c.planeColor = this.planeColor;
+        c.planeBacklightColor = this.planeBacklightColor;
+        c.landColor = landColor;
+        
         return c;
     }
 }

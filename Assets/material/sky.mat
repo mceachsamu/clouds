@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BackTex:
-        m_Texture: {fileID: 2800000, guid: 5c19f3972620d4eaf925c6e1f7e8655a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 679ab49f8eeff45ec86668bb2cac19d0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DownTex:
-        m_Texture: {fileID: 2800000, guid: aec4e8e6dda7342b0bbe18799200eefb, type: 3}
+        m_Texture: {fileID: 2800000, guid: e12f1df91042d420b8f9445039eedc65, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrontTex:
-        m_Texture: {fileID: 2800000, guid: e164643d1cee94c72871f78d4d8c182d, type: 3}
+        m_Texture: {fileID: 2800000, guid: ded7b3ff647c44c4292bd7b9198b0b29, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LeftTex:
-        m_Texture: {fileID: 2800000, guid: eec1c89b8e403430fba5ba2087b4cbd7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8bc3f1c406d114ef4814044223e4f831, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -72,11 +72,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RightTex:
-        m_Texture: {fileID: 2800000, guid: 9d04e1b63798b42f38f3712336e18649, type: 3}
+        m_Texture: {fileID: 2800000, guid: a1f6d430b456a4756a2c493b29b1558f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpTex:
-        m_Texture: {fileID: 2800000, guid: fd38646fbc9644333bbf31147b94a97e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4685d9752c08e4149b0f74251745e50a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -107,6 +107,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Rotation: {r: 331.67822, g: 0, b: 0, a: 0}
-    - _Tint: {r: 0.47777307, g: 0.6263101, b: 0.6824186, a: 1}
+    - _Rotation: {r: 345.49164, g: 0, b: 0, a: 0}
+    - _Tint: {r: 0.3663943, g: 0.33086556, b: 0.4526353, a: 1}
   m_BuildTextureStacks: []

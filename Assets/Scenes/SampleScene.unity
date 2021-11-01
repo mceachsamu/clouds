@@ -167,9 +167,9 @@ MonoBehaviour:
   minDistance: 0
   minScale: 2
   maxScale: 4
-  rangeX: 2000
-  rangeY: 2000
-  rangeZ: 2000
+  rangeX: 3000
+  rangeY: 3000
+  rangeZ: 3000
   numClouds: 1000
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
@@ -296,7 +296,7 @@ Transform:
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &94090337
 MonoBehaviour:
@@ -5185,6 +5185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: island
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
+      propertyPath: m_TagString
+      value: land
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
 --- !u!1 &210939248 stripped
@@ -5453,10 +5457,10 @@ MonoBehaviour:
   minDistance: 0
   minScale: 2
   maxScale: 4
-  rangeX: 3000
-  rangeY: 3000
-  rangeZ: 3000
-  numClouds: 500
+  rangeX: 4000
+  rangeY: 4000
+  rangeZ: 4000
+  numClouds: 400
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: 1, y: -0.6, z: 0}
@@ -5553,15 +5557,18 @@ MonoBehaviour:
   - {r: 0.9433962, g: 0.93966484, b: 0.6986472, a: 1}
   - {r: 0.68765575, g: 0.851634, b: 0.9528302, a: 1}
   - {r: 0.9433962, g: 0.6541474, b: 0.92683643, a: 1}
-  skyColor: {r: 0.9433962, g: 0.6719473, b: 0.93776906, a: 1}
+  skyColor: {r: 0.745283, g: 0.5238074, b: 0.7389551, a: 1}
   cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
-  cloudGloss: 2
-  cloudRim: 10
+  cloudGloss: 1
+  cloudRim: 5
   rimColor: {r: 0.9811321, g: 0.94179696, b: 0.68956923, a: 0}
   glossColor: {r: 0.9528302, g: 0.9467344, b: 0.73260057, a: 0}
   backlightStrength: 1
-  backlightPower: 1
+  backlightPower: 0.5
   backlightColor: {r: 0.9811321, g: 0.9749021, b: 0.8191527, a: 0}
+  planeColor: {r: 0.6697223, g: 0.78887516, b: 0.8113208, a: 1}
+  planeBacklightColor: {r: 0.8867924, g: 0.86138976, b: 0.17150229, a: 1}
+  landColor: {r: 0.6981132, g: 0.44153464, b: 0.15477037, a: 0}
   currentMagnitude: 0
 --- !u!1 &705507993
 GameObject:
@@ -5598,13 +5605,13 @@ Light:
   m_InnerSpotAngle: 21.802082
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
+    m_Type: 2
+    m_Resolution: 3
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.466
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 2.22
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -5649,7 +5656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 3199, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5761,7 +5768,7 @@ Transform:
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &729721569
 MonoBehaviour:
@@ -10835,12 +10842,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 1781025838}
+  planeMaterial: {fileID: 2100000, guid: 1a7e4f6e9f4f24aea80049a75fcf1602, type: 2}
   colorObjects:
   - {fileID: 627561687}
   - {fileID: 1205886405}
   - {fileID: 1847304171}
   skyboxMaterial: {fileID: 2100000, guid: aae1fb36ea67d46e2986924991f04b46, type: 2}
-  lightDirectionChangeRate: 15
+  lightDirectionChangeRate: 5
   directionalLight: {fileID: 705507993}
   cloudSpawnerObjects:
   - {fileID: 15667982}
@@ -10895,7 +10903,7 @@ Transform:
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
-  m_RootOrder: 25
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &954434437
 MonoBehaviour:
@@ -15767,7 +15775,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 60000
-  field of view: 80
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -16012,6 +16020,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plane
       objectReference: {fileID: 0}
+    - target: {fileID: 1143763025451411011, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1a7e4f6e9f4f24aea80049a75fcf1602, type: 2}
     - target: {fileID: 3131808598729261852, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -16084,6 +16096,9 @@ MonoBehaviour:
   backlightStrength: 1
   backlightPower: 1
   backlightColor: {r: 0.38447848, g: 0.55538064, b: 0.6037736, a: 0}
+  planeColor: {r: 0.23673905, g: 0.34315693, b: 0.3773585, a: 1}
+  planeBacklightColor: {r: 0.34282663, g: 0.6792453, b: 0.6353269, a: 1}
+  landColor: {r: 0.2016732, g: 0.27758062, b: 0.41509432, a: 0}
   currentMagnitude: 0
 --- !u!4 &1205886407
 Transform:
@@ -16132,7 +16147,7 @@ Transform:
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1305765576
 MonoBehaviour:
@@ -20995,7 +21010,7 @@ Transform:
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &1316804049
 ParticleSystemRenderer:
@@ -30726,7 +30741,7 @@ Transform:
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1781025838 stripped
 GameObject:
@@ -30819,6 +30834,9 @@ MonoBehaviour:
   backlightStrength: 1
   backlightPower: 0.5
   backlightColor: {r: 0.9716981, g: 0.9714633, b: 0.71960664, a: 0}
+  planeColor: {r: 0.495372, g: 0.7467921, b: 0.8679245, a: 1}
+  planeBacklightColor: {r: 0.9528302, g: 0.90521955, b: 0.50787646, a: 1}
+  landColor: {r: 0.5849056, g: 0.49165705, b: 0.251068, a: 0}
   currentMagnitude: 0
 --- !u!4 &1847304173
 Transform:
