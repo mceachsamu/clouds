@@ -44,10 +44,6 @@ public class cloudSpawner : MonoBehaviour
     void Update()
     {
         this.center = weatherControll.center;
-        // set the material properties for each cloud
-        for (int i = 0; i < clouds.Length; i++) {
-            this.setCloudMaterialProperties(clouds[i]);
-        }
     }
 
     public void instantiateClouds() {
@@ -71,25 +67,11 @@ public class cloudSpawner : MonoBehaviour
             cloud.GetComponent<cloud>().cloudMoveSpeed = this.generateCloudMoveSpeed();
             cloud.GetComponent<cloud>().fadeRate = fadeRate;
             clouds[i] = cloud;
-
-            setCloudMaterialProperties(cloud);
         }
     }
 
-    private void setCloudMaterialProperties(GameObject cloud) {
-        cloud cloudS = cloud.GetComponent<cloud>();
-        int index = cloudS.colorIndex;
-        colorSet currentColorSet = this.weatherControll.getCurrentColorSet();
-
-        cloudS.baseColor = currentColorSet.colors[index];
-        cloud.GetComponent<Renderer>().material.SetVector("_Color", currentColorSet.colors[index]);
-        cloud.GetComponent<Renderer>().material.SetFloat("_Glossiness", currentColorSet.cloudGloss);
-        cloud.GetComponent<Renderer>().material.SetFloat("_RimAmount", currentColorSet.cloudRim);
-        cloud.GetComponent<Renderer>().material.SetVector("_RimColor", currentColorSet.rimColor);
-        cloud.GetComponent<Renderer>().material.SetVector("_SpecularColor", currentColorSet.glossColor);
-        cloud.GetComponent<Renderer>().material.SetFloat("_BackLightStrength",currentColorSet.backlightStrength);
-        cloud.GetComponent<Renderer>().material.SetFloat("_BackLightPower", currentColorSet.backlightPower);
-        cloud.GetComponent<Renderer>().material.SetVector("_BacklightColor", currentColorSet.backlightColor);
+    public weatherController GetWeatherController() {
+        return this.weatherControll;
     }
 
     public float generateCloudMoveSpeed() {

@@ -38,7 +38,7 @@ public class planeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 windDir = new Vector3(0.0f, 0.0f, this.getForward().z).normalized;//this.getForward();
+        Vector3 windDir = new Vector3(0.0f, 0.0f, this.getForward().z).normalized;
         Vector3 forward = this.getForward().normalized;
         Vector3 wing = -1.0f * this.transform.right.normalized;
         

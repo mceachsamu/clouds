@@ -61,6 +61,23 @@ public class cloud : MonoBehaviour
         this.transform.position = pos; 
         fadeOut();
         fadeIn();
+
+        this.setCloudMaterialProperties();
+    }
+
+    private void setCloudMaterialProperties() {
+        int index = this.colorIndex;
+        colorSet currentColorSet = this.cloudSpawner.GetWeatherController().getCurrentColorSet();
+
+        this.baseColor = currentColorSet.colors[index];
+        this.GetComponent<Renderer>().material.SetVector("_Color", currentColorSet.colors[index]);
+        this.GetComponent<Renderer>().material.SetFloat("_Glossiness", currentColorSet.cloudGloss);
+        this.GetComponent<Renderer>().material.SetFloat("_RimAmount", currentColorSet.cloudRim);
+        this.GetComponent<Renderer>().material.SetVector("_RimColor", currentColorSet.rimColor);
+        this.GetComponent<Renderer>().material.SetVector("_SpecularColor", currentColorSet.glossColor);
+        this.GetComponent<Renderer>().material.SetFloat("_BackLightStrength",currentColorSet.backlightStrength);
+        this.GetComponent<Renderer>().material.SetFloat("_BackLightPower", currentColorSet.backlightPower);
+        this.GetComponent<Renderer>().material.SetVector("_BacklightColor", currentColorSet.backlightColor);
     }
 
     private void fadeOut() {
