@@ -86,7 +86,7 @@ Material:
     - _SrcBlend: 1
     - _Transparency: 0
     - _UVSec: 0
-    - _UseColor: 0
+    - _UseColor: 1
     - _UseNormalMap: 0
     - _ZWrite: 1
     m_Colors:
