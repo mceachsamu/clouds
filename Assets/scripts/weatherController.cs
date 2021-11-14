@@ -22,6 +22,8 @@ public class weatherController : MonoBehaviour
 
     private GameObject[] land;
 
+    public int startColor;
+
     public Vector3 center;
 
     // Start is called before the first frame update
@@ -54,9 +56,9 @@ public class weatherController : MonoBehaviour
         }
 
         // set the initial color
-        colors[0].currentMagnitude = 1.0f;
+        colors[startColor].currentMagnitude = 1.0f;
         currentColorSet = new colorSet();
-        currentColorSet.SetNewColorSet(colors[2]);
+        currentColorSet.SetNewColorSet(colors[startColor]);
     }
 
     // Update is called once per frame
@@ -75,7 +77,7 @@ public class weatherController : MonoBehaviour
 
         float propDay = Mathf.Clamp(1.0f - sunDown, 0.0f, 1.0f);
         float propNight = Mathf.Clamp(sunDown, 0.0f, 1.0f);
-        this.colors[0].currentMagnitude = propDay;
+        this.colors[startColor].currentMagnitude = propDay;
         this.colors[1].currentMagnitude = propNight;
 
         setSkyboxRotation();
