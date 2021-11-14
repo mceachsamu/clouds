@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,11 +21,41 @@ public class cloud : MonoBehaviour
     private Vector3 resetPosition;
     public int colorIndex;
 
+    private Collider collider;
+    Mesh deformingMesh;
+	Vector3[] originalVertices, displacedVertices, vertexVelocities;
+    private float force = 100.0f;
+    private float forceOffset = 0.1f;
+
+    private float springForce = 0.5f;
+
+    private float damping = 5.0f;
+
+    private float distancePower = 2.0f;
+
+    private bool colliding;
+
+    private Vector3 collidingPosition;
+
+    private Vector3 collidingDirection;
+
+
     // Start is called before the first frame update
     void Start()
     {
         this.GetComponent<Renderer>().material.SetFloat("_Transparency", transparency);
         this.GetComponent<Renderer>().material.SetVector("_Color", baseColor);
+
+        collider = this.GetComponent<Collider>();
+
+        deformingMesh = this.GetComponent<MeshFilter>().mesh;
+		originalVertices = deformingMesh.vertices;
+		displacedVertices = new Vector3[originalVertices.Length];
+        vertexVelocities = new Vector3[originalVertices.Length];
+
+		for (int i = 0; i < originalVertices.Length; i++) {
+			displacedVertices[i] = originalVertices[i];
+		}
     }
 
     // Update is called once per frame
@@ -62,6 +93,10 @@ public class cloud : MonoBehaviour
         fadeOut();
         fadeIn();
 
+        if (colliding) {
+            this.UpdateVertices();
+        }
+
         this.setCloudMaterialProperties();
     }
 
@@ -97,5 +132,62 @@ public class cloud : MonoBehaviour
             this.GetComponent<Renderer>().material.SetFloat("_Transparency", transparency);
             transparency += fadeRate;
         }
+    }
+
+    public void AddDeformingForce (Vector3 point, float force, int index) {
+        // point = transform.InverseTransformPoint(point);
+        AddForceToVertex(index, point, force);
+	}
+
+	void AddForceToVertex (int i, Vector3 point, float force) {
+        Vector3 forceDirection = this.collidingDirection;
+
+		Vector3 pointToVertex = transform.TransformPoint(displacedVertices[i]) - point;
+        float dist = (1f + Mathf.Pow(pointToVertex.magnitude, distancePower));
+        float attenuatedForce = force / dist;
+        float velocity = attenuatedForce * Time.deltaTime;
+
+        if (i == 0) {
+            print(velocity);
+        }
+
+        vertexVelocities[i] += forceDirection.normalized * velocity;
+	}
+
+    void UpdateVertex (int i) {
+		Vector3 velocity = vertexVelocities[i];
+        // removing spring force for now, need to consider how clouds move over time
+        // Vector3 displacement = displacedVertices[i] - originalVertices[i];
+		// velocity -= displacement * springForce * Time.deltaTime;
+		velocity *= 1f - damping * Time.deltaTime;
+		vertexVelocities[i] = velocity;
+		displacedVertices[i] += transform.InverseTransformDirection(velocity * Time.deltaTime);
+	}
+
+    void HandleCollision (Collider collider, Vector3 position, float force, int index) {
+       
+        Vector3 closest = collidingPosition;
+
+        //returns true if the point is inside the collider
+        // float dist = (closest.y - position.y);
+        // if (dist < distanceThreshold) {
+        this.AddDeformingForce(closest, force, index);
+        // }
+    }
+
+    private void UpdateVertices() {
+        
+        for (int i = 0; i < displacedVertices.Length; i++) {
+            this.HandleCollision(collider, displacedVertices[i], force, i);
+			this.UpdateVertex(i);
+		}
+		deformingMesh.vertices = displacedVertices;
+		deformingMesh.RecalculateNormals();
+    }
+
+    public void SetColliding(Boolean c, Vector3 position, Vector3 direction) {
+        this.colliding = c;
+        this.collidingPosition = position;
+        this.collidingDirection = direction;
     }
 }

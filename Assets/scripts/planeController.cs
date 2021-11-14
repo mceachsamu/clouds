@@ -105,6 +105,7 @@ public class planeController : MonoBehaviour
             cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
             collide.baseColor = cloud.baseColor;
             collide.turnOn();
+            cloud.SetColliding(true, collide.transform.position, this.GetComponent<Rigidbody>().velocity);
         }
     }
 

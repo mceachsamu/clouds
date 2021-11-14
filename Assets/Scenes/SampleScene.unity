@@ -164,10 +164,10 @@ MonoBehaviour:
   minDistance: 0
   minScale: 2
   maxScale: 4
-  rangeX: 1000
-  rangeY: 1000
-  rangeZ: 1000
-  numClouds: 700
+  rangeX: 400
+  rangeY: 400
+  rangeZ: 400
+  numClouds: 100
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: -1, y: 0.6, z: 0}
@@ -5232,7 +5232,7 @@ MonoBehaviour:
   rangeX: 3000
   rangeY: 3000
   rangeZ: 3000
-  numClouds: 800
+  numClouds: 1
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: 1, y: -0.6, z: 0}
@@ -5354,8 +5354,8 @@ MonoBehaviour:
   cloudRim: 5
   rimColor: {r: 0.9811321, g: 0.94179696, b: 0.68956923, a: 0}
   glossColor: {r: 0.9528302, g: 0.9467344, b: 0.73260057, a: 0}
-  backlightStrength: 0.7
-  backlightPower: 0.5
+  backlightStrength: 0.5
+  backlightPower: 0.8
   backlightColor: {r: 0.9811321, g: 0.9749021, b: 0.8191527, a: 0}
   planeColor: {r: 0.6697223, g: 0.78887516, b: 0.8113208, a: 1}
   planeBacklightColor: {r: 0.8867924, g: 0.86138976, b: 0.17150229, a: 1}
@@ -10340,11 +10340,12 @@ MonoBehaviour:
   - {fileID: 1205886405}
   - {fileID: 1847304171}
   skyboxMaterial: {fileID: 2100000, guid: aae1fb36ea67d46e2986924991f04b46, type: 2}
-  lightDirectionChangeRate: 5
+  lightDirectionChangeRate: 1
   directionalLight: {fileID: 705507993}
   cloudSpawnerObjects:
   - {fileID: 15667982}
   - {fileID: 559115972}
+  startColor: 0
   center: {x: 0, y: 0, z: 0}
 --- !u!4 &901674862
 Transform:
@@ -15267,7 +15268,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 60000
-  field of view: 60
+  field of view: 66
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -15389,8 +15390,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 1781025838}
-  offsetZ: 5
-  offsetY: 0
+  offsetZ: 10
+  offsetY: -1
   moveToPositionRate: 0.05
   moveToRotationRate: 0.1
   collisionDistance: 1
@@ -30452,7 +30453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yTiltRate: 0.003
-  thrust: 25
+  thrust: 15
   liftAmount: 5
   liftPull: 0.7
   baseLift: 1
