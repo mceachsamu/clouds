@@ -24,14 +24,14 @@ public class cloud : MonoBehaviour
     private Collider collider;
     Mesh deformingMesh;
 	Vector3[] originalVertices, displacedVertices, vertexVelocities;
-    private float force = 0.1f;
+    private float force = 0.5f;
     private float forceOffset = 0.1f;
 
     private float springForce = 0.5f;
 
-    private float damping = 1.0f;
+    private float damping = 5.0f;
 
-    private float distancePower = 1.5f;
+    private float distancePower = 3.0f;
 
     private bool colliding;
 
@@ -41,7 +41,7 @@ public class cloud : MonoBehaviour
 
     private int counter = 0;
 
-    private int maxDuration = 500;
+    private int maxDuration = 200;
     // Start is called before the first frame update
     void Start()
     {

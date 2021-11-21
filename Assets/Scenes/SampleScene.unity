@@ -30468,7 +30468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yTiltRate: 0.003
-  thrust: 15
+  thrust: 20
   liftAmount: 5
   liftPull: 0.7
   baseLift: 1
