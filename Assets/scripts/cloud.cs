@@ -24,14 +24,14 @@ public class cloud : MonoBehaviour
     private Collider collider;
     Mesh deformingMesh;
 	Vector3[] originalVertices, displacedVertices, vertexVelocities;
-    private float force = 100.0f;
+    private float force = 0.1f;
     private float forceOffset = 0.1f;
 
     private float springForce = 0.5f;
 
-    private float damping = 5.0f;
+    private float damping = 1.0f;
 
-    private float distancePower = 2.0f;
+    private float distancePower = 1.5f;
 
     private bool colliding;
 
@@ -39,7 +39,9 @@ public class cloud : MonoBehaviour
 
     private Vector3 collidingDirection;
 
+    private int counter = 0;
 
+    private int maxDuration = 500;
     // Start is called before the first frame update
     void Start()
     {
@@ -94,10 +96,20 @@ public class cloud : MonoBehaviour
         fadeIn();
 
         if (colliding) {
+            counter++;
             this.UpdateVertices();
         }
 
+        if (counter >= maxDuration) {
+            colliding = false;
+            counter = 0;
+        }
+
         this.setCloudMaterialProperties();
+    }
+
+    public void resetCounter() {
+        this.counter = 0;
     }
 
     private void setCloudMaterialProperties() {
@@ -147,10 +159,6 @@ public class cloud : MonoBehaviour
         float attenuatedForce = force / dist;
         float velocity = attenuatedForce * Time.deltaTime;
 
-        if (i == 0) {
-            print(velocity);
-        }
-
         vertexVelocities[i] += forceDirection.normalized * velocity;
 	}
 
@@ -183,6 +191,7 @@ public class cloud : MonoBehaviour
 		}
 		deformingMesh.vertices = displacedVertices;
 		deformingMesh.RecalculateNormals();
+        this.GetComponent<MeshCollider>().sharedMesh = deformingMesh;
     }
 
     public void SetColliding(Boolean c, Vector3 position, Vector3 direction) {
