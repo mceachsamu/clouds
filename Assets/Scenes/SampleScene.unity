@@ -163,7 +163,7 @@ MonoBehaviour:
   rangeX: 800
   rangeY: 800
   rangeZ: 800
-  numClouds: 600
+  numClouds: 400
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: -1, y: 0.6, z: 0}
@@ -5228,7 +5228,7 @@ MonoBehaviour:
   rangeX: 3000
   rangeY: 3000
   rangeZ: 3000
-  numClouds: 500
+  numClouds: 800
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: 1, y: -0.6, z: 0}
@@ -10336,7 +10336,7 @@ MonoBehaviour:
   - {fileID: 1205886405}
   - {fileID: 1847304171}
   skyboxMaterial: {fileID: 2100000, guid: aae1fb36ea67d46e2986924991f04b46, type: 2}
-  lightDirectionChangeRate: 1
+  lightDirectionChangeRate: 4
   directionalLight: {fileID: 705507993}
   cloudSpawnerObjects:
   - {fileID: 15667982}
@@ -15587,7 +15587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 10.474
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15595,7 +15595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.547
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15741,9 +15741,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - {r: 0.38972944, g: 0.4143295, b: 0.5471698, a: 1}
-  - {r: 0.34242612, g: 0.4650625, b: 0.5377358, a: 1}
-  - {r: 0.35754126, g: 0.2763439, b: 0.4339623, a: 1}
+  - {r: 0.47076362, g: 0.5047474, b: 0.6698113, a: 1}
+  - {r: 0.4261303, g: 0.58812386, b: 0.6792453, a: 1}
+  - {r: 0.45022532, g: 0.3484336, b: 0.5471698, a: 1}
   skyColor: {r: 0.24181205, g: 0.2674244, b: 0.3584906, a: 1}
   cloudMaterial: {fileID: 2100000, guid: c644d5f9239d540da81644fc7c66edf5, type: 2}
   cloudGloss: 0.1

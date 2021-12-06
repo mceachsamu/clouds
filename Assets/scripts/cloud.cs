@@ -24,10 +24,10 @@ public class cloud : MonoBehaviour
     private Collider collider;
     Mesh deformingMesh;
 	Vector3[] originalVertices, displacedVertices, vertexVelocities;
-    private float force = 0.5f;
+    private float force = 0.3f;
     private float forceOffset = 0.1f;
 
-    private float springForce = 0.5f;
+    private float springForce = 0.1f;
 
     private float damping = 5.0f;
 
