@@ -33,6 +33,11 @@ public class planeController : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+
+
+        for (int i = 0; i < colliderPositions.Length; i++) {
+            StartCoroutine(handleCollision(colliderPositions[i]));
+        }
     }
 
     // Update is called once per frame
@@ -84,39 +89,39 @@ public class planeController : MonoBehaviour
             Vector3 direction = this.getForward() * yTiltRate * -1.0f;
             rb.AddTorque(direction);
         }
-
-        for (int i = 0; i < colliderPositions.Length; i++) {
-            handleCollision(colliderPositions[i]);
-        }
     }
 
     public float getSpeed() {
         return this.GetComponent<Rigidbody>().velocity.magnitude;
     }
 
-    private void handleCollision(GameObject collider) {
+    private IEnumerator handleCollision(GameObject collider) {
         RaycastHit hit;
 
-        if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
-        {
-            colliderController collide = collider.GetComponent<colliderController>();
-            collide.SetTransparencyFade(getCollisionParticleFade());
-            cloudSpawner cloudControl = cloudController.GetComponent<cloudSpawner>();
-            cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
-            collide.baseColor = cloud.baseColor;
-            collide.turnOn();
-            cloud.SetColliding(true, collide.transform.position, this.GetComponent<Rigidbody>().velocity);
-            cloud.resetCounter();
-        } else if (Physics.Raycast(collider.transform.position, this.getForward() * -1.0f, out hit, collisionDistance))
-        {
-            colliderController collide = collider.GetComponent<colliderController>();
-            collide.SetTransparencyFade(getCollisionParticleFade());
-            cloudSpawner cloudControl = cloudController.GetComponent<cloudSpawner>();
-            cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
-            collide.baseColor = cloud.baseColor;
-            collide.turnOn();
-            cloud.SetColliding(true, collide.transform.position, this.GetComponent<Rigidbody>().velocity);
-            cloud.resetCounter();
+        while (true) {
+            if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
+            {
+                colliderController collide = collider.GetComponent<colliderController>();
+                collide.SetTransparencyFade(getCollisionParticleFade());
+                cloudSpawner cloudControl = cloudController.GetComponent<cloudSpawner>();
+                cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
+                collide.baseColor = cloud.baseColor;
+                collide.turnOn();
+                cloud.SetColliding(true, collide.transform.position, this.GetComponent<Rigidbody>().velocity);
+                cloud.resetCounter();
+            } else if (Physics.Raycast(collider.transform.position, this.getForward() * -1.0f, out hit, collisionDistance))
+            {
+                colliderController collide = collider.GetComponent<colliderController>();
+                collide.SetTransparencyFade(getCollisionParticleFade());
+                cloudSpawner cloudControl = cloudController.GetComponent<cloudSpawner>();
+                cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
+                collide.baseColor = cloud.baseColor;
+                collide.turnOn();
+                cloud.SetColliding(true, collide.transform.position, this.GetComponent<Rigidbody>().velocity);
+                cloud.resetCounter();
+            }
+
+            yield return new WaitForSeconds(0.01f);
         }
     }
     

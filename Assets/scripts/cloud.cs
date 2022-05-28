@@ -97,7 +97,7 @@ public class cloud : MonoBehaviour
 
         if (colliding) {
             counter++;
-            this.UpdateVertices();
+            //this.UpdateVertices();
         }
 
         if (counter >= maxDuration) {

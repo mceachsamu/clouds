@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class colorSetMonoBehaviour : MonoBehaviour
 {
- public Color[] colors;
+    public Color[] colors;
 
     public Color skyColor;
 
