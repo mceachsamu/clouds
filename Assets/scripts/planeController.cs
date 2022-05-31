@@ -9,7 +9,9 @@ public class planeController : MonoBehaviour
 
     public float yTiltRate;
 
+    [Range(0.0f, 20.0f)]
     public float thrust;
+    
     public float liftAmount;
     public float liftPull;
 
@@ -28,15 +30,17 @@ public class planeController : MonoBehaviour
     public float minParticleFade;
     public float maxParticleFade;
 
+    public float collisionForce;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
 
-
         for (int i = 0; i < colliderPositions.Length; i++) {
-            StartCoroutine(handleCollision(colliderPositions[i]));
+            StartCoroutine(handleCollisionWithClouds(colliderPositions[i]));
+            StartCoroutine(handleCollisionWithLand(colliderPositions[i]));
         }
     }
 
@@ -95,21 +99,13 @@ public class planeController : MonoBehaviour
         return this.GetComponent<Rigidbody>().velocity.magnitude;
     }
 
-    private IEnumerator handleCollision(GameObject collider) {
+    private IEnumerator handleCollisionWithClouds(GameObject collider) {
         RaycastHit hit;
 
         while (true) {
-            if (Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance))
-            {
-                colliderController collide = collider.GetComponent<colliderController>();
-                collide.SetTransparencyFade(getCollisionParticleFade());
-                cloudSpawner cloudControl = cloudController.GetComponent<cloudSpawner>();
-                cloud cloud = hit.transform.gameObject.GetComponent<cloud>();
-                collide.baseColor = cloud.baseColor;
-                collide.turnOn();
-                cloud.SetColliding(true, collide.transform.position, this.GetComponent<Rigidbody>().velocity);
-                cloud.resetCounter();
-            } else if (Physics.Raycast(collider.transform.position, this.getForward() * -1.0f, out hit, collisionDistance))
+            if ((Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance)
+            || Physics.Raycast(collider.transform.position, this.getForward() * -1.0f, out hit, collisionDistance))
+            && hit.transform.gameObject.tag == "cloud")
             {
                 colliderController collide = collider.GetComponent<colliderController>();
                 collide.SetTransparencyFade(getCollisionParticleFade());
@@ -124,8 +120,25 @@ public class planeController : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
-    
 
+
+    private IEnumerator handleCollisionWithLand(GameObject collider) {
+        RaycastHit hit;
+
+        while (true) {
+            if ((Physics.Raycast(collider.transform.position, this.getForward(), out hit, collisionDistance)
+            || Physics.Raycast(collider.transform.position, this.getForward() * -1.0f, out hit, collisionDistance))
+            && hit.transform.gameObject.tag == "water")
+            {
+                // get the direction from the collider to the object
+                Vector3 collisionDir = (collider.transform.position - hit.transform.position).normalized;
+                this.rb.AddForceAtPosition(collisionDir * 1.0f * collisionForce, collider.transform.position);
+            }
+
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+    
     private float getCollisionParticleFade() {
         return Random.Range(minParticleFade, maxParticleFade);
     }

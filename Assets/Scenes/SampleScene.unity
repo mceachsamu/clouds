@@ -163,7 +163,7 @@ MonoBehaviour:
   rangeX: 800
   rangeY: 800
   rangeZ: 800
-  numClouds: 400
+  numClouds: 200
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: -1, y: 0.6, z: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 94090337}
   m_Layer: 0
   m_Name: Sphere (3)
-  m_TagString: Untagged
+  m_TagString: plane-collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5047,27 +5047,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalScale.x
-      value: 353.36243
+      value: 160.47601
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalScale.y
-      value: 353.36243
+      value: 160.47601
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalScale.z
-      value: 353.36243
+      value: 160.47601
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3283
+      value: 1.0451
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 167.46
+      value: 82.551
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1321.2
+      value: 1308.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bbd7845f38dd4e46875af14a8afb505, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5200,6 +5200,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cloud-low-poly-4
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cce070586f26649fabac228bb7f8e424, type: 3}
+      propertyPath: m_TagString
+      value: cloud
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cce070586f26649fabac228bb7f8e424, type: 3}
 --- !u!1 &559115972
@@ -5241,12 +5245,12 @@ MonoBehaviour:
   maxDirection: {x: 0.5, y: 1, z: 0}
   maxDistance: 0
   minDistance: 0
-  minScale: 2
-  maxScale: 4
-  rangeX: 3000
-  rangeY: 3000
-  rangeZ: 3000
-  numClouds: 800
+  minScale: 4
+  maxScale: 6
+  rangeX: 5000
+  rangeY: 5000
+  rangeZ: 5000
+  numClouds: 1200
   moveSpeedMax: 0.05
   moveSpeedMin: 0.01
   cloudMoveDirection: {x: 1, y: -0.6, z: 0}
@@ -5483,7 +5487,7 @@ GameObject:
   - component: {fileID: 729721569}
   m_Layer: 0
   m_Name: Sphere (4)
-  m_TagString: Untagged
+  m_TagString: plane-collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10393,7 +10397,7 @@ GameObject:
   - component: {fileID: 954434437}
   m_Layer: 0
   m_Name: Sphere (7)
-  m_TagString: Untagged
+  m_TagString: plane-collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10405,13 +10409,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954434435}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.232, y: -1.15, z: -0.005}
+  m_LocalRotation: {x: 0.008435442, y: -0.0018216071, z: 0.0013037025, w: 0.999962}
+  m_LocalPosition: {x: -0.23200244, y: -1.1499968, z: -0.00499475}
   m_LocalScale: {x: 0.086812645, y: 0.086812645, z: 0.086812645}
   m_Children: []
   m_Father: {fileID: 1393887505}
   m_RootOrder: 24
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.967, y: -0.208, z: 0.148}
 --- !u!114 &954434437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15282,7 +15286,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 60000
-  field of view: 66
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -15482,6 +15486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cloud-low-poly-5
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f5eb9f2d8c0e49fb9bac1456aa36c4b, type: 3}
+      propertyPath: m_TagString
+      value: cloud
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5eb9f2d8c0e49fb9bac1456aa36c4b, type: 3}
 --- !u!1001 &1041402411
@@ -15555,6 +15563,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cloud-low-poly-2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5ecbe6dea393d4d4d97ae15abc774a74, type: 3}
+      propertyPath: m_TagString
+      value: cloud
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecbe6dea393d4d4d97ae15abc774a74, type: 3}
 --- !u!1 &1094667953 stripped
@@ -15605,43 +15617,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 259.8
+      value: 433.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -72.6
+      value: -181.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 394.6
+      value: 486.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.52369994
+      value: -0.23507048
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.47628883
+      value: 0.66772336
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.4970634
+      value: -0.65564024
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5018121
+      value: 0.262723
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 1.752
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -221.254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -87.555
+      value: -91.706
       objectReference: {fileID: 0}
     - target: {fileID: -6384497053187781196, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -15695,6 +15707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plane
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
+      propertyPath: m_TagString
+      value: Plane
+      objectReference: {fileID: 0}
     - target: {fileID: 1143763025451411011, guid: f4ce6e65701eb403d9981ccb2affceab, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -15741,7 +15757,7 @@ GameObject:
   - component: {fileID: 1109147242}
   m_Layer: 0
   m_Name: wheelCollider
-  m_TagString: Untagged
+  m_TagString: wheel collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15772,9 +15788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56eeb8fdc79e4f9ca0ad51a9ef3b81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionDistance: 1
-  bounceMultiplier: 40
-  landSlowDownRate: 0.95
+  collisionDistance: 0.2
+  bounceMultiplier: 100
+  landSlowDownRate: 0.97
+  minLift: 0.5
   plane: {fileID: 0}
 --- !u!1 &1205886405
 GameObject:
@@ -15852,7 +15869,7 @@ GameObject:
   - component: {fileID: 1305765576}
   m_Layer: 0
   m_Name: Sphere (2)
-  m_TagString: Untagged
+  m_TagString: plane-collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20702,7 +20719,7 @@ GameObject:
   - component: {fileID: 1316804051}
   m_Layer: 8
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: plane-collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25616,6 +25633,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1346369550762627069, guid: a18a33bdb8039449a9250df302b6137a, type: 3}
+      propertyPath: m_TagString
+      value: water
+      objectReference: {fileID: 0}
     - target: {fileID: 312798698618953876, guid: a18a33bdb8039449a9250df302b6137a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -25646,7 +25667,7 @@ GameObject:
   - component: {fileID: 1654919603}
   m_Layer: 0
   m_Name: Sphere (1)
-  m_TagString: Untagged
+  m_TagString: plane-collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30552,6 +30573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cloud-low-poly-3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 55a7efcac6ba14353a5e18256266266c, type: 3}
+      propertyPath: m_TagString
+      value: cloud
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55a7efcac6ba14353a5e18256266266c, type: 3}
 --- !u!1 &1671000800 stripped
@@ -30610,7 +30635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yTiltRate: 0.003
-  thrust: 20
+  thrust: 0
   liftAmount: 5
   liftPull: 0.7
   baseLift: 1
@@ -30626,6 +30651,7 @@ MonoBehaviour:
   cloudController: {fileID: 15667982}
   minParticleFade: 0.001
   maxParticleFade: 0.0015
+  collisionForce: 0.001
 --- !u!54 &1781025840
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30792,6 +30818,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cloud-low-poly
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7626e5d62a3ee49d48cbcff88f0556ae, type: 3}
+      propertyPath: m_TagString
+      value: cloud
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7626e5d62a3ee49d48cbcff88f0556ae, type: 3}
 --- !u!850595691 &1925887497
@@ -30914,6 +30944,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cloud-1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1167199bfecd14d91bdfd4c970dede2a, type: 3}
+      propertyPath: m_TagString
+      value: cloud
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1167199bfecd14d91bdfd4c970dede2a, type: 3}
 --- !u!1 &2133773256
@@ -30928,7 +30962,7 @@ GameObject:
   - component: {fileID: 2133773258}
   m_Layer: 0
   m_Name: wheelCollider (1)
-  m_TagString: Untagged
+  m_TagString: wheel collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30959,7 +30993,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56eeb8fdc79e4f9ca0ad51a9ef3b81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionDistance: 1
-  bounceMultiplier: 40
-  landSlowDownRate: 0.7
+  collisionDistance: 0.2
+  bounceMultiplier: 1
+  landSlowDownRate: 0.97
+  minLift: 0.5
   plane: {fileID: 0}

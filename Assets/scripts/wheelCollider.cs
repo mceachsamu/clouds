@@ -8,6 +8,7 @@ public class wheelCollider : MonoBehaviour
     public float collisionDistance = 10.0f;
     public float bounceMultiplier = 0.5f;
     public float landSlowDownRate = 0.9f;
+    public float minLift = 0.5f;
     public GameObject plane;
 
     // Start is called before the first frame update
@@ -17,15 +18,18 @@ public class wheelCollider : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isCollidingWithWater()) {
             Rigidbody planeRb =  plane.GetComponent<Rigidbody>();
             Vector3 velocity = planeRb.velocity;
-            print(velocity.magnitude);
 
             // add counter force to make plane bounce on water surface
-            planeRb.AddForce(new Vector3(0.0f, velocity.magnitude * bounceMultiplier, 0.0f));
+            // planeRb.AddForce();
+            
+            Vector3 forceDir = new Vector3(0.0f, -1.0f * (velocity.y - minLift) * bounceMultiplier, 0.0f);
+            planeRb.AddForce(forceDir);
+            
             planeRb.velocity *= landSlowDownRate;
         }
     }
@@ -34,7 +38,7 @@ public class wheelCollider : MonoBehaviour
         RaycastHit hit;
         Debug.DrawLine(this.transform.position, this.transform.position + this.transform.right * collisionDistance, Color.red);
         
-        if (Physics.Raycast(this.transform.position, this.transform.up, out hit, collisionDistance))
+        if (Physics.Raycast(this.transform.position, this.transform.right, out hit, collisionDistance))
         {
             return true;
         }
