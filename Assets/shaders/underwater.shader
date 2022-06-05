@@ -5,6 +5,8 @@
         _MainTex ("Texture", 2D) = "white" {}
         _WaterLevel("water level", float) = 0.0
         _WaterFade("water fade", Range(0.0, 0.1)) = 0.0
+        _WaterFadeExp("water fade exp", Range(0.0, 5.0)) = 0.0
+        _MinLevel("min level", Range(-1.0, 1.0)) = 0.0
     }
     SubShader
     {
@@ -37,6 +39,8 @@
 
             uniform float _WaterLevel;
             uniform float _WaterFade;
+            uniform float _WaterFadeExp;
+            uniform float _MinLevel;
 
             v2f vert (appdata v)
             {
@@ -52,7 +56,9 @@
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                float waterFade = abs(_WaterLevel - i.wpos.y * _WaterFade);
+                float diff = _WaterLevel - i.wpos.y;
+
+                float waterFade = pow(diff, _WaterFadeExp) + (diff * _WaterFade) + _MinLevel;
 
                 return float4(waterFade, waterFade, waterFade, 1.0);
             }

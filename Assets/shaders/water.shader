@@ -59,9 +59,9 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 waterTex = tex2D(_Texture, i.uv * _TextureFrequency);
+                fixed4 waterTex = tex2D(_Texture, i.uv * _TextureFrequency + _Time.x * 2.0);
 
-                float2 renderTexUV = float2(i.screenPos.x + waterTex.r * 1.0, i.screenPos.y + waterTex.r * 1.0) / i.screenPos.w;
+                float2 renderTexUV = float2(i.screenPos.x + waterTex.r, i.screenPos.y + waterTex.r) / i.screenPos.w;
 
                 fixed4 underwater = tex2D(_UnderWaterTexture, renderTexUV);
 
