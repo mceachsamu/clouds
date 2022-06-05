@@ -116,7 +116,6 @@
                 return o;
             }
 
-            #include "cellShading.cginc"
             #include "MyLighting.cginc"
 
             fixed4 frag (v2f i) : SV_Target

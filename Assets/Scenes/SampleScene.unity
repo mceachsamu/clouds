@@ -15789,7 +15789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionDistance: 0.2
-  bounceMultiplier: 100
+  bounceMultiplier: 10
   landSlowDownRate: 0.97
   minLift: 0.5
   plane: {fileID: 0}
@@ -30994,7 +30994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionDistance: 0.2
-  bounceMultiplier: 1
+  bounceMultiplier: 10
   landSlowDownRate: 0.97
   minLift: 0.5
   plane: {fileID: 0}

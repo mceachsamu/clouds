@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - land
+  - Plane
+  - cloud
+  - water
+  - plane-collider
+  - wheel collider
   layers:
   - Default
   - TransparentFX
