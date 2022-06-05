@@ -40,7 +40,9 @@ public class wheelCollider : MonoBehaviour
         
         if (Physics.Raycast(this.transform.position, this.transform.right, out hit, collisionDistance))
         {
-            return true;
+            if (hit.transform.gameObject.tag == "water") {
+                return true;
+            }
         }
         
         return false;
