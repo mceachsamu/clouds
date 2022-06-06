@@ -147,7 +147,6 @@ public class cloud : MonoBehaviour
     }
 
     public void AddDeformingForce (Vector3 point, float force, int index) {
-        // point = transform.InverseTransformPoint(point);
         AddForceToVertex(index, point, force);
 	}
 

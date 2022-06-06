@@ -150,4 +150,8 @@ public class planeController : MonoBehaviour
     public Vector3 getUp() {
         return this.transform.right;
     }
+
+    public Vector3 getRight() {
+        return this.transform.forward;
+    }
 }

@@ -19,6 +19,8 @@ public class cameraController : MonoBehaviour
 
     public float collisionDistance;
 
+    public GameObject firstPersonPosition;
+
     private Boolean toggleFog = false;
 
 
@@ -33,29 +35,54 @@ public class cameraController : MonoBehaviour
 
     public float opacityChange;
 
+    public int cameraSwitch = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         this.targetPosition = plane.transform.position;
-        this.targetRotation = plane.GetComponent<planeController>().getForward();
+        
+
+        this.transform.forward = plane.GetComponent<planeController>().getForward();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        FirstPersonCam();
+        if (Input.GetKey("1")) {
+            cameraSwitch = 1;
+        }
+        if (Input.GetKey("2")) {
+            cameraSwitch = 0;
+        }
+
+        if (cameraSwitch == 0) {
+            FirstPersonCam();
+        } else {
+            ThirdPersonCam();
+        }
+    }
+
+    public void FirstPersonCam() {
+        this.transform.parent = plane.transform;
+        // this.setTargetLocation();
+        this.transform.position = firstPersonPosition.transform.position;
+        // this.transform.position = plane.transform.position;
+        
+    }
+
+    public void ThirdPersonCam() {
         this.setTargetLocation();
         this.transform.position = this.targetPosition;
 
         Vector3 planeForward = this.targetRotation;//plane.GetComponent<planeController>().getForward();
-        this.transform.forward = planeForward;
+        this.transform.forward = plane.GetComponent<planeController>().getForward();
         
         Vector3 planeUp = plane.GetComponent<planeController>().getUp();
         Vector3 pos = this.transform.position - planeForward * offsetZ + planeUp * offsetY;
         this.transform.position = pos;
-
-        Vector3 cameraForward = new Vector3(planeForward.x, planeForward.y, this.transform.forward.z);
-        this.transform.forward = cameraForward;
     }
 
     public void setTargetLocation() {
