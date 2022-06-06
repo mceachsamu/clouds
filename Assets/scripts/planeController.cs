@@ -45,7 +45,7 @@ public class planeController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 windDir = new Vector3(0.0f, 0.0f, this.getForward().z).normalized;
         Vector3 forward = this.getForward().normalized;
@@ -79,19 +79,19 @@ public class planeController : MonoBehaviour
         // add our turning torques  
         if (Input.GetKey("w")) {
             Vector3 direction = this.transform.forward * yTiltRate * - 1.0f;
-            rb.AddTorque(direction);
+            rb.AddTorque(direction, ForceMode.VelocityChange);
         }
         if (Input.GetKey("s")) {
             Vector3 direction = this.transform.forward * yTiltRate;
-            rb.AddTorque(direction);
+            rb.AddTorque(direction, ForceMode.VelocityChange);
         }
         if (Input.GetKey("a")) {
             Vector3 direction = this.getForward() * yTiltRate;
-            rb.AddTorque(direction);
+            rb.AddTorque(direction, ForceMode.VelocityChange);
         }
         if (Input.GetKey("d")) {
             Vector3 direction = this.getForward() * yTiltRate * -1.0f;
-            rb.AddTorque(direction);
+            rb.AddTorque(direction, ForceMode.VelocityChange);
         }
     }
 

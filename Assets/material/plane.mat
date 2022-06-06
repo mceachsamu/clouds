@@ -91,8 +91,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AmbientColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
-    - _BacklightColor: {r: 0.34282663, g: 0.6792453, b: 0.6353269, a: 1}
-    - _Color: {r: 0.23673905, g: 0.34315693, b: 0.3773585, a: 1}
+    - _BacklightColor: {r: 0.8227076, g: 0.56642914, b: 0.5365978, a: 1}
+    - _Color: {r: 0.70469725, g: 0.46189395, b: 0.76222014, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 0.9622642, g: 0.90673167, b: 0.11347453, a: 1}

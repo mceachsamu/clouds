@@ -66,7 +66,7 @@ Material:
     - _BumpScale: 1
     - _CastsShadows: 0
     - _Cutoff: 0.5
-    - _DepthMultiplier: 0.33
+    - _DepthMultiplier: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FakeDensityMult: 0
@@ -79,8 +79,8 @@ Material:
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimAmount: 0.67
-    - _Saturation: 0.7
+    - _RimAmount: 0.79
+    - _Saturation: 0.8
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
