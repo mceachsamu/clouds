@@ -79,8 +79,8 @@ Material:
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimAmount: 0.79
-    - _Saturation: 0.8
+    - _RimAmount: 0.72
+    - _Saturation: 0.74
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
