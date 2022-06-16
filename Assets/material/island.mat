@@ -64,7 +64,7 @@ Material:
     - _BackLightPower: 0.13
     - _BackLightStrength: 0.16
     - _BumpScale: 1
-    - _CastsShadows: 1.41
+    - _CastsShadows: 1
     - _Cutoff: 0.5
     - _DepthMultiplier: 1
     - _DetailNormalMapScale: 1
