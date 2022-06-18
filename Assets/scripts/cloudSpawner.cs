@@ -9,6 +9,8 @@ public class cloudSpawner : MonoBehaviour
     public Vector3 minDirection;
     public Vector3 maxDirection;
 
+    public DirectionType cloudDirectionType;
+
     public float maxDistance;
 
     public float minDistance;
@@ -36,6 +38,11 @@ public class cloudSpawner : MonoBehaviour
 
     public Texture2D DistributionHorizontal;
 
+    public enum DirectionType {
+        linear,
+        radial
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,11 +63,10 @@ public class cloudSpawner : MonoBehaviour
 
             cloud.transform.position = this.generateCloudPosition();
             cloud.transform.localScale *= this.generateCloudScale();
-            cloud.transform.forward = this.generateCloudRotation();
+            cloud.transform.right = this.generateCloudRotation(cloud.transform.position);
 
             int colorIndex = Random.Range(0, weatherControll.getCurrentColors().Length);
 
-            cloud.AddComponent<cloud>();
             cloud.GetComponent<cloud>().baseColor = weatherControll.getCurrentColors()[colorIndex];
             cloud.GetComponent<cloud>().colorIndex = colorIndex;
             
@@ -79,7 +85,25 @@ public class cloudSpawner : MonoBehaviour
         return Random.Range(moveSpeedMin, moveSpeedMax);
     }
 
-    private Vector3 generateCloudRotation() {
+    private Vector3 generateCloudRotation(Vector3 pos) {
+        if (cloudDirectionType == DirectionType.linear) {
+            return getLinearRotation();
+        }
+
+        return getRadialRotation(pos);
+    }
+
+    private Vector3 getRadialRotation(Vector3 pos) {
+        GameObject plane = GameObject.FindGameObjectsWithTag("Plane")[0];
+        Vector3 planePos = new Vector3(plane.transform.position.x, pos.y, plane.transform.position.z);
+
+        Vector3 directionToPlane = (planePos - pos).normalized;
+        Vector3 radialDirection = new Vector3(directionToPlane.x, directionToPlane.y, directionToPlane.z);
+
+        return radialDirection;
+    }
+
+    private Vector3 getLinearRotation() {
         float x = Random.Range(minDirection.x, maxDirection.x);
         float y = Random.Range(minDirection.y, maxDirection.y);
         float z = Random.Range(minDirection.z, maxDirection.z);
