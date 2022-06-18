@@ -44,6 +44,10 @@ public class planeController : MonoBehaviour
         }
     }
 
+    void OnGUI() {
+        this.GetComponent<Animator>().speed = thrust;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -133,6 +137,8 @@ public class planeController : MonoBehaviour
                 // get the direction from the collider to the object
                 Vector3 collisionDir = (collider.transform.position - hit.transform.position).normalized;
                 this.rb.AddForceAtPosition(collisionDir * 1.0f * collisionForce, collider.transform.position);
+
+
             }
 
             yield return new WaitForSeconds(0.01f);

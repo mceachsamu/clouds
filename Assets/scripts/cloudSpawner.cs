@@ -34,6 +34,7 @@ public class cloudSpawner : MonoBehaviour
 
     private weatherController weatherControll;
 
+    public Texture2D DistributionHorizontal;
 
     // Start is called before the first frame update
     void Start()
