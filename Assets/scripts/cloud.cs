@@ -24,14 +24,14 @@ public class cloud : MonoBehaviour
     private Collider collider;
     Mesh deformingMesh;
 	Vector3[] originalVertices, displacedVertices, vertexVelocities;
-    private float force = 0.3f;
+    private float force = 30.0f;
     private float forceOffset = 0.1f;
 
-    private float springForce = 0.1f;
+    private float springForce = 1.0f;
 
-    private float damping = 5.0f;
+    private float damping = 1.0f;
 
-    private float distancePower = 3.0f;
+    private float distancePower = 2.0f;
 
     private bool colliding;
 
@@ -42,6 +42,8 @@ public class cloud : MonoBehaviour
     private int counter = 0;
 
     private int maxDuration = 200;
+
+    private Boolean isInteractive;
     // Start is called before the first frame update
     void Start()
     {
@@ -97,7 +99,10 @@ public class cloud : MonoBehaviour
 
         if (colliding) {
             counter++;
-            //this.UpdateVertices();
+            if (isInteractive) {
+                print("JERE");
+                this.UpdateVertices();
+            }
         }
 
         if (counter >= maxDuration) {
@@ -152,7 +157,6 @@ public class cloud : MonoBehaviour
 
 	void AddForceToVertex (int i, Vector3 point, float force) {
         Vector3 forceDirection = this.collidingDirection;
-
 		Vector3 pointToVertex = transform.TransformPoint(displacedVertices[i]) - point;
         float dist = (1f + Mathf.Pow(pointToVertex.magnitude, distancePower));
         float attenuatedForce = force / dist;
@@ -172,7 +176,6 @@ public class cloud : MonoBehaviour
 	}
 
     void HandleCollision (Collider collider, Vector3 position, float force, int index) {
-       
         Vector3 closest = collidingPosition;
 
         //returns true if the point is inside the collider
@@ -197,5 +200,9 @@ public class cloud : MonoBehaviour
         this.colliding = c;
         this.collidingPosition = position;
         this.collidingDirection = direction;
+    }
+
+    public void SetInteractive(Boolean isInteractive) {
+        this.isInteractive = isInteractive;
     }
 }

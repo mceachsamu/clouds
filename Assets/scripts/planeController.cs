@@ -9,8 +9,12 @@ public class planeController : MonoBehaviour
 
     public float yTiltRate;
 
-    [Range(0.0f, 20.0f)]
+    public float thrustMin;
+    public float thrustMax;
+
     public float thrust;
+
+    public float thrustIncrease;
     
     public float liftAmount;
     public float liftPull;
@@ -96,6 +100,17 @@ public class planeController : MonoBehaviour
         if (Input.GetKey("d")) {
             Vector3 direction = this.getForward() * yTiltRate * -1.0f;
             rb.AddTorque(direction, ForceMode.VelocityChange);
+        }
+
+        if (Input.GetKey("p")) {
+            if (thrust < thrustMax) {
+                this.thrust += thrustIncrease;
+            }
+        }
+        if (Input.GetKey("o")) {
+            if (thrust > thrustMin) {
+                this.thrust -= thrustIncrease;
+            }
         }
     }
 

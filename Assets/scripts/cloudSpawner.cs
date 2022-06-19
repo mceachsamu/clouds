@@ -36,7 +36,7 @@ public class cloudSpawner : MonoBehaviour
 
     private weatherController weatherControll;
 
-    public Texture2D DistributionHorizontal;
+    public bool CloudsAreInteractive;
 
     public enum DirectionType {
         linear,
@@ -63,6 +63,7 @@ public class cloudSpawner : MonoBehaviour
 
             cloud.transform.position = this.generateCloudPosition();
             cloud.transform.localScale *= this.generateCloudScale();
+
             cloud.transform.right = this.generateCloudRotation(cloud.transform.position);
 
             int colorIndex = Random.Range(0, weatherControll.getCurrentColors().Length);
@@ -73,6 +74,7 @@ public class cloudSpawner : MonoBehaviour
             cloud.GetComponent<cloud>().cloudSpawner = this;
             cloud.GetComponent<cloud>().cloudMoveSpeed = this.generateCloudMoveSpeed();
             cloud.GetComponent<cloud>().fadeRate = fadeRate;
+            cloud.GetComponent<cloud>().SetInteractive(CloudsAreInteractive);
             clouds[i] = cloud;
         }
     }
