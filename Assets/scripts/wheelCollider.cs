@@ -9,6 +9,7 @@ public class wheelCollider : MonoBehaviour
     public float bounceMultiplier = 0.5f;
     public float landSlowDownRate = 0.9f;
     public float minLift = 0.5f;
+    public float torqueStrength;
     public GameObject plane;
 
     // Start is called before the first frame update
@@ -20,8 +21,8 @@ public class wheelCollider : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Rigidbody planeRb =  plane.GetComponent<Rigidbody>();
         if (isCollidingWithWater()) {
-            Rigidbody planeRb =  plane.GetComponent<Rigidbody>();
             Vector3 velocity = planeRb.velocity;
 
             // add counter force to make plane bounce on water surface
@@ -32,6 +33,11 @@ public class wheelCollider : MonoBehaviour
             
             planeRb.velocity *= landSlowDownRate;
         }
+
+        Vector3 tPos = plane.transform.position + new Vector3(0.0f, 1.0f, 0.0f);
+        Vector3 tDir = (this.transform.position - tPos).normalized;
+
+        planeRb.AddForceAtPosition(tDir * torqueStrength, this.transform.position);
     }
 
     private bool isCollidingWithWater() {

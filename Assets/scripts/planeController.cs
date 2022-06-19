@@ -85,20 +85,21 @@ public class planeController : MonoBehaviour
         rb.AddTorque(new Vector3(0.0f, 0.0f, stabilise));
 
         // add our turning torques  
+        float tiltFactor = getTiltFactor();
         if (Input.GetKey("w")) {
-            Vector3 direction = this.transform.forward * yTiltRate * - 1.0f;
+            Vector3 direction = this.transform.forward * yTiltRate * - 1.0f * tiltFactor;
             rb.AddTorque(direction, ForceMode.VelocityChange);
         }
         if (Input.GetKey("s")) {
-            Vector3 direction = this.transform.forward * yTiltRate;
+            Vector3 direction = this.transform.forward * yTiltRate * tiltFactor;
             rb.AddTorque(direction, ForceMode.VelocityChange);
         }
         if (Input.GetKey("a")) {
-            Vector3 direction = this.getForward() * yTiltRate;
+            Vector3 direction = this.getForward() * yTiltRate * tiltFactor;
             rb.AddTorque(direction, ForceMode.VelocityChange);
         }
         if (Input.GetKey("d")) {
-            Vector3 direction = this.getForward() * yTiltRate * -1.0f;
+            Vector3 direction = this.getForward() * yTiltRate * -1.0f * tiltFactor;
             rb.AddTorque(direction, ForceMode.VelocityChange);
         }
 
@@ -112,6 +113,10 @@ public class planeController : MonoBehaviour
                 this.thrust -= thrustIncrease;
             }
         }
+    }
+
+    public float getTiltFactor() {
+        return Mathf.Clamp(this.GetComponent<Rigidbody>().velocity.magnitude, 0.0f, 10.0f)/10.0f;
     }
 
     public float getSpeed() {

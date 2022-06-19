@@ -23,6 +23,8 @@ public class weatherController : MonoBehaviour
     private GameObject[] land;
 
     public int startColor;
+    public int nightColor;
+    public int sunSetColor;
 
     public Vector3 center;
 
@@ -70,15 +72,17 @@ public class weatherController : MonoBehaviour
         this.setLandColor();
 
         directionalLight.transform.Rotate(lightDirectionChangeRate * Time.deltaTime, 0.0f, 0.0f);
-        float sunDown = (directionalLight.transform.forward.y) + 0.5f;
+        float sunDown = (directionalLight.transform.forward.y);
         if (sunDown < 0.0f) {
             sunDown = 0.0f;
         }
 
         float propDay = Mathf.Clamp(1.0f - sunDown, 0.0f, 1.0f);
+        float propSunSet = Mathf.Clamp(Mathf.Cos(sunDown), 0.0f, 1.0f);
         float propNight = Mathf.Clamp(sunDown, 0.0f, 1.0f);
+        
         this.colors[startColor].currentMagnitude = propDay;
-        this.colors[1].currentMagnitude = propNight;
+        this.colors[nightColor].currentMagnitude = propNight;
 
         setSkyboxRotation();
 
